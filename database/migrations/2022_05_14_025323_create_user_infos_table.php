@@ -20,11 +20,12 @@ class CreateUserInfosTable extends Migration
             $table->text('address');
             $table->text('bank_name');
             $table->double('amount');
-            $table->integer('deposited_by');
-            $table->integer('amount_type');
+            $table->string('deposited_by');
+            $table->string('amount_type');
             $table->integer('user_id');
             $table->text('image')->nullable();
             $table->date('date')->default(now());
+            $table->text('cheque_pay_order_no');
             $table->timestamps();
         });
     }

@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\AdminAuthController;
 use App\Http\Controllers\Auth\EditorAuthController;
 use App\Http\Controllers\editor\EditorController;
 use App\Http\Controllers\admin\EditorController as AdminEditorController;
+use App\Http\Controllers\editor\FundsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -49,6 +50,7 @@ Route::group(['middleware' => ['auth:editor']], function () {
             Route::get('/', [EditorController::class, 'dashboard'])->name('dashboard');
             Route::get('/profile', [EditorController::class, 'profile'])->name('profile');
             Route::post('/profile-update', [EditorController::class, 'updateProfile'])->name('profile.update');
+            Route::resource('/funds',FundsController::class);
         });
     });
 });
