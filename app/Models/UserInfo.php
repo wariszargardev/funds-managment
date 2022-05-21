@@ -17,7 +17,13 @@ class UserInfo extends Model
         'amount',
         'deposited_by',
         'amount_type',
-        'date',
         'user_id',
+        'image',
+        'date',
+        'cheque_pay_order_no',
     ];
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

@@ -19,4 +19,9 @@ class Editor extends Authenticatable
         'admin_id',
         'image',
     ];
+
+
+    public function users(){
+        return $this->hasMany(User::class);
+    }
 }

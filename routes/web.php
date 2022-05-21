@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\EditorAuthController;
 use App\Http\Controllers\editor\EditorController;
 use App\Http\Controllers\admin\EditorController as AdminEditorController;
 use App\Http\Controllers\editor\FundsController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,14 +20,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Auth::routes();
+
 Route::redirect('/', '/editor/login' );
 Route::redirect('/login', '/editor/login' );
 
-Auth::routes();
-
-
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::group(['middleware' => ['auth:admin']], function () {
     Route::prefix('admin')->group(function () {
@@ -51,6 +50,8 @@ Route::group(['middleware' => ['auth:editor']], function () {
             Route::get('/profile', [EditorController::class, 'profile'])->name('profile');
             Route::post('/profile-update', [EditorController::class, 'updateProfile'])->name('profile.update');
             Route::resource('/funds',FundsController::class);
+            Route::get('/editor/funds/{id}/destroy', [FundsController::class, 'destroy'])->name('funds.destroy');
+
         });
     });
 });

@@ -5,11 +5,12 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">{{ __('Funds add') }}</div>
+                    <div class="card-header">{{ __('Funds edit') }}</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('editor.funds.store') }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('editor.funds.update',$fund->id) }}" enctype="multipart/form-data">
                             @csrf
+                            @method('PUT')
                             <div class="row mb-3">
                                 @include('component.messages')
                             </div>
@@ -17,37 +18,37 @@
                                 <div class="col-lg-6">
                                     <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Received From') }}</label>
                                     <div class="col-lg-12">
-                                        <input type="text" class="form-control" name="received_from" value="{{old('received_from')}}" required>
+                                        <input type="text" class="form-control" name="received_from" value="{{$fund->received_from}}" required>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Date') }}</label>
                                     <div class="col-lg-12">
-                                        <input type="date" class="form-control" name="date" value="{{old('date')}}" required>
+                                        <input type="date" class="form-control" name="date" value="{{$fund->date}}" required>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Company name') }}</label>
                                     <div class="col-lg-12">
-                                        <input type="text" class="form-control" name="company_name" value="{{old('company_name')}}" required>
+                                        <input type="text" class="form-control" name="company_name" value="{{$fund->company_name}}" required>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Phone number') }}</label>
                                     <div class="col-lg-12">
-                                        <input id="name" type="text" class="form-control" name="phone_number" value="{{old('phone_number')}}" required  autofocus>
+                                        <input id="name" disabled type="text" class="form-control" name="phone_number" value="{{$fund->phone_number}}" required  autofocus>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Address') }}</label>
                                     <div class="col-lg-12">
-                                        <textarea type="text" class="form-control" name="address" rows="3">{{old('address')}}</textarea>
+                                        <textarea type="text" class="form-control" name="address" rows="3">{{$fund->address}}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Amount') }}</label>
                                     <div class="col-lg-12">
-                                        <input type="text" class="form-control" name="amount" value="{{old('amount')}}" required>
+                                        <input type="text" class="form-control" name="amount" value="{{$fund->amount}}" required>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -85,7 +86,7 @@
                                 <div class="col-lg-6">
                                     <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Bank name') }}</label>
                                     <div class="col-lg-12">
-                                        <input type="text" class="form-control" name="bank_name" value="{{old('bank_name')}}" required>
+                                        <input type="text" class="form-control" name="bank_name" value="{{$fund->bank_name}}" required>
 
                                     </div>
                                 </div>
@@ -93,7 +94,7 @@
                                 <div class="col-lg-6">
                                     <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Cheque / Pay Order No') }}</label>
                                     <div class="col-lg-12">
-                                        <input type="text" class="form-control" name="cheque_pay_order_no" value="{{old('cheque_pay_order_no')}}" required>
+                                        <input type="text" class="form-control" name="cheque_pay_order_no" value="{{$fund->cheque_pay_order_no}}" required>
 
                                     </div>
                                 </div>
@@ -119,6 +120,10 @@
                                     <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Image') }}</label>
                                     <div class="col-lg-12">
                                         <input type="file" class="form-control" name="image" />
+                                    </div>
+
+                                    <div>
+                                        <img src="{{asset('funds/'.$fund->image)}}" class="img img-thumbnail">
                                     </div>
                                 </div>
                             </div>
