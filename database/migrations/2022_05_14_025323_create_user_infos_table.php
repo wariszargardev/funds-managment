@@ -17,6 +17,7 @@ class CreateUserInfosTable extends Migration
             $table->id();
             $table->string('received_from');
             $table->string('company_name');
+            $table->string('email');
             $table->text('address');
             $table->text('bank_name');
             $table->double('amount');

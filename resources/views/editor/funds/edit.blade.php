@@ -61,23 +61,23 @@
                                     <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Deposited by') }}</label>
                                     <div class="col-lg-12">
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="deposited_by" id="deposited_by1" checked value="Bank draft">
+                                            <input class="form-check-input" {{$fund->deposited_by == 'Bank draft' ? "checked" : ''}} type="radio" name="deposited_by" id="deposited_by1" value="Bank draft">
                                             <label class="form-check-label" for="deposited_by1">Bank draft</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="deposited_by" id="deposited_by2" value="Pay order">
+                                            <input class="form-check-input" {{$fund->deposited_by == 'Pay order' ? "checked" : ''}} type="radio" name="deposited_by" id="deposited_by2" value="Pay order">
                                             <label class="form-check-label" for="deposited_by2">Pay order</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="deposited_by" id="deposited_by3" value="Cheque">
+                                            <input class="form-check-input" {{$fund->deposited_by == 'Cheque' ? "checked" : ''}} type="radio" name="deposited_by" id="deposited_by3" value="Cheque">
                                             <label class="form-check-label" for="deposited_by3">Cheque</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="deposited_by" id="deposited_by4" value="Cash">
+                                            <input class="form-check-input" {{$fund->deposited_by == 'Cash">' ? "checked" : ''}} type="radio" name="deposited_by" id="deposited_by4" value="Cash">
                                             <label class="form-check-label" for="deposited_by4">Cash</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="deposited_by" id="deposited_by5" value="Online">
+                                            <input class="form-check-input" {{$fund->deposited_by == 'Online' ? "checked" : ''}} type="radio" name="deposited_by" id="deposited_by5" value="Online">
                                             <label class="form-check-label" for="deposited_by5">Online</label>
                                         </div>
                                     </div>
@@ -102,15 +102,15 @@
                                     <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Deposited by') }}</label>
                                     <div class="col-lg-12">
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="amount_type" id="amount_type1" checked value="Zakat">
+                                            <input class="form-check-input" type="radio" name="amount_type" id="amount_type1"  {{$fund->amount_type == "Zakat" ? 'checked' : '' }} value="Zakat">
                                             <label class="form-check-label" for="amount_type1">Zakat</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="amount_type" id="amount_type2" value="Sadqa">
+                                            <input class="form-check-input" type="radio" name="amount_type" id="amount_type2" {{$fund->amount_type ==  "Sadqa" ? 'checked' : ''}} value="Sadqa">
                                             <label class="form-check-label" for="amount_type2">Sadqa</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="amount_type" id="amount_type3" value="Donation">
+                                            <input class="form-check-input" type="radio" name="amount_type" id="amount_type3" {{$fund->amount_type ==  "Donation" ? 'checked' : ''}} value="Donation">
                                             <label class="form-check-label" for="amount_type3">Donation</label>
                                         </div>
                                     </div>

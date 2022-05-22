@@ -38,24 +38,28 @@
                                         <input id="name" type="text" class="form-control" name="phone_number" value="{{old('phone_number')}}" required  autofocus>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
-                                    <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Address') }}</label>
+
+                                <div class="col-lg-6">
+                                    <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Email') }}</label>
                                     <div class="col-lg-12">
-                                        <textarea type="text" class="form-control" name="address" rows="3">{{old('address')}}</textarea>
+                                        <input type="email" class="form-control" name="email" value="{{old('email')}}" required>
                                     </div>
                                 </div>
+
                                 <div class="col-lg-6">
                                     <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Amount') }}</label>
                                     <div class="col-lg-12">
                                         <input type="text" class="form-control" name="amount" value="{{old('amount')}}" required>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
-{{--                                    <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('In words') }}</label>--}}
-{{--                                    <div class="col-lg-12">--}}
-{{--                                        .....--}}
-{{--                                    </div>--}}
+
+                                <div class="col-lg-12">
+                                    <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Address') }}</label>
+                                    <div class="col-lg-12">
+                                        <textarea type="text" class="form-control" name="address" rows="3">{{old('address')}}</textarea>
+                                    </div>
                                 </div>
+
                                 <div class="col-lg-12">
                                     <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Deposited by') }}</label>
                                     <div class="col-lg-12">

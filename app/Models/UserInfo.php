@@ -20,6 +20,7 @@ class UserInfo extends Model
         'user_id',
         'image',
         'date',
+        'email',
         'cheque_pay_order_no',
     ];
 

@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\editor;
 
 use App\Http\Controllers\Controller;
+use App\Mail\FundsMail;
 use App\Models\User;
 use App\Models\UserInfo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class FundsController extends Controller
 {
@@ -18,6 +20,7 @@ class FundsController extends Controller
     }
 
     public function create(){
+        $user_info = UserInfo::first();
         return view('editor.funds.create');
     }
 
@@ -28,6 +31,7 @@ class FundsController extends Controller
             'company_name' => ['required', 'string' ,'max:255'],
             'phone_number' => ['required', 'string' ,'max:255'],
             'address' => ['nullable', 'string'],
+            'email' => ['required', 'string'],
             'amount' => ['required', 'string'],
             'bank_name' => ['required', 'string','max:255'],
             'cheque_pay_order_no' => ['required', 'string','max:255'],
@@ -44,7 +48,7 @@ class FundsController extends Controller
         }
 
         $file_name =  $this->uploadMediaFile($request, 'image','funds');
-        UserInfo::create([
+        $user_info = UserInfo::create([
             'received_from'=>$request->received_from,
             'company_name'=>$request->company_name,
             'address'=>$request->address,
@@ -55,9 +59,12 @@ class FundsController extends Controller
             'user_id'=>$user->id,
             'image'=>$file_name,
             'date'=>$request->date,
+            'email'=>$request->email,
             'cheque_pay_order_no'=>$request->cheque_pay_order_no,
         ]);
-
+        if (env('IS_ENABLED_SEND_EMAIL') == 1){
+            Mail::to($request->email)->send(new FundsMail($user_info));
+        }
         return redirect()->route('editor.funds.index')->withSuccess('Record save successfully');
 
     }
@@ -78,6 +85,7 @@ class FundsController extends Controller
             'date' => ['required', 'date'],
             'company_name' => ['required', 'string' ,'max:255'],
             'address' => ['nullable', 'string'],
+            'email' => ['required', 'string'],
             'amount' => ['required', 'string'],
             'bank_name' => ['required', 'string','max:255'],
             'cheque_pay_order_no' => ['required', 'string','max:255'],
@@ -89,18 +97,20 @@ class FundsController extends Controller
             $file_name = $this->uploadMediaFile($request, 'image', 'funds');
         }
 
-            $user_info->received_from = $request->received_from;
-            $user_info->company_name = $request->company_name;
-            $user_info->address = $request->address;
-            $user_info->bank_name = $request->bank_name;
-            $user_info->amount = $request->amount;
-            $user_info->deposited_by = $request->deposited_by;
-            $user_info->amount_type = $request->amount_type;
-            $user_info->image = $file_name;
-            $user_info->date = $request->date;
-            $user_info->cheque_pay_order_no = $request->cheque_pay_order_no;
+        $user_info->received_from = $request->received_from;
+        $user_info->company_name = $request->company_name;
+        $user_info->address = $request->address;
+        $user_info->bank_name = $request->bank_name;
+        $user_info->amount = $request->amount;
+        $user_info->deposited_by = $request->deposited_by;
+        $user_info->amount_type = $request->amount_type;
+        $user_info->image = $file_name;
+        $user_info->date = $request->date;
+        $user_info->email = $request->email;
+        $user_info->cheque_pay_order_no = $request->cheque_pay_order_no;
 
         $user_info->save();
+
         return redirect()->route('editor.funds.index')->withSuccess('Record update successfully');
 
     }
