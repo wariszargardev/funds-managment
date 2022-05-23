@@ -1,4 +1,4 @@
-@extends('layouts.editor')
+@extends('layouts.admin')
 
 @section('content')
     <div class="container">
@@ -8,7 +8,7 @@
             @foreach($funds->userInfos as $fund)
                 <div class="col-md-4 mb-5">
                     <div class="card" style="width: 100%;">
-                        <img style="height: 200px" src="{{asset('funds/'.$fund->image)}}" class="card-img-top" alt="...">
+                        <img src="{{asset('funds/'.$fund->image)}}" style="height: 200px" class="card-img-top" alt="...">
                         <div class="card-body">
                             <p class="card-text"><b>Date: </b>{{$fund->date}}</p>
                             <p class="card-text"><b>Received from: </b>{{$fund->received_from}}</p>
@@ -19,10 +19,6 @@
                             <p class="card-text"><b>Amount type: </b>{{$fund->amount_type}}</p>
                             <p class="card-text"><b>Cheque / pay order no: </b>{{$fund->cheque_pay_order_no}}</p>
                             <p class="card-text"><b>Address: </b>{{$fund->address}}</p>
-
-                            <div class="text-center">
-                                <a href="{{ route('editor.funds.destroy',$fund->id) }}"  onclick="return confirm('Are you sure?')" class="btn btn-outline-secondary">Delete</a>
-                            </div>
                         </div>
                     </div>
                 </div>

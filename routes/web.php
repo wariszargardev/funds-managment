@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\EditorAuthController;
 use App\Http\Controllers\editor\EditorController;
 use App\Http\Controllers\admin\EditorController as AdminEditorController;
 use App\Http\Controllers\editor\FundsController;
+use App\Http\Controllers\admin\FundsController as AdminFundsController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -34,7 +35,10 @@ Route::group(['middleware' => ['auth:admin']], function () {
             Route::get('/profile', [AdminController::class, 'profile'])->name('profile');
             Route::post('/profile-update', [AdminController::class, 'updateProfile'])->name('profile.update');
             Route::resource('/editor',AdminEditorController::class);
-            Route::get('/editor/{editor}',[AdminEditorController::class,'destroy'])->name('editor.destroy');        });
+            Route::get('/editor/{editor}',[AdminEditorController::class,'destroy'])->name('editor.destroy');
+            Route::resource('/funds',AdminFundsController::class);
+
+        });
     });
 });
 
