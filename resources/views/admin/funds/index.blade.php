@@ -7,6 +7,9 @@
                 <div class="card">
                     <div class="card-header">
                         {{ __('Funds list') }}
+
+                        <a class="btn btn-outline-info float-end" href="{{route('admin.funds.export')}}">Excel Download</a>
+
                     </div>
                     <form method="get" id="date-filter">
                         <div class="row container mt-2">

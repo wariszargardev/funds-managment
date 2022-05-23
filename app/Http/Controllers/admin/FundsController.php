@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Exports\FundsExport;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\UserInfo;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class FundsController extends Controller
 {
@@ -98,4 +100,33 @@ class FundsController extends Controller
     {
         //
     }
+
+    public function export($id=null)
+    {
+        if ($id==null) {
+            $funds = UserInfo::all();
+        }
+        else{
+            $funds = UserInfo::where('user_id',$id)->get();
+        }
+        $data = array();
+        foreach ($funds as $fund){
+            $temp  = array();
+            $temp[] = $fund->id;
+            $temp[] = $fund->email;
+            $temp[] = $fund->user->phone_number;
+            $temp[] = $fund->received_from;
+            $temp[] = $fund->company_name;
+            $temp[] = $fund->bank_name;
+            $temp[] = '$'.$fund->amount;
+            $temp[] = $fund->deposited_by;
+            $temp[] = $fund->amount_type;
+            $temp[] = $fund->date;
+            $temp[] = $fund->cheque_pay_order_no;
+            $temp[] = $fund->address;
+            $data[] = $temp;
+        }
+        return Excel::download(new FundsExport($data), 'funds.xlsx');
+    }
+
 }

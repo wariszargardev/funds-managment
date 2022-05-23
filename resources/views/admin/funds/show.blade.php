@@ -3,7 +3,10 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center mb-5">
-            <h3 class="text-center">Phone number: {{$funds->phone_number}}</h3>
+            <h3 class="text-left">
+                Phone number: {{$funds->phone_number}}
+                <a class="btn btn-outline-info float-end" href="{{route('admin.funds.export',$funds->id  )}}">Excel Download</a>
+            </h3>
             <h3>Funds info</h3>
             @foreach($funds->userInfos as $fund)
                 <div class="col-md-4 mb-5">

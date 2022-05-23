@@ -36,6 +36,7 @@ Route::group(['middleware' => ['auth:admin']], function () {
             Route::post('/profile-update', [AdminController::class, 'updateProfile'])->name('profile.update');
             Route::resource('/editor',AdminEditorController::class);
             Route::get('/editor/{editor}',[AdminEditorController::class,'destroy'])->name('editor.destroy');
+            Route::get('/export/{id?}',[AdminFundsController::class,'export'])->name('funds.export');
             Route::resource('/funds',AdminFundsController::class);
 
         });
