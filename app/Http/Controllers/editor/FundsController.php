@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Mail\FundsMail;
 use App\Models\User;
 use App\Models\UserInfo;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -63,7 +64,13 @@ class FundsController extends Controller
             'cheque_pay_order_no'=>$request->cheque_pay_order_no,
         ]);
         if (env('IS_ENABLED_SEND_EMAIL') == 1){
-            Mail::to($request->email)->send(new FundsMail($user_info));
+            try {
+                Mail::to($request->email)->send(new FundsMail($user_info));
+            }
+            catch (Exception $ex){
+
+            }
+
         }
         return redirect()->route('editor.funds.index')->withSuccess('Record save successfully');
 
