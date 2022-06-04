@@ -14,57 +14,74 @@
                                 @include('component.messages')
                             </div>
                             <div class="row mb-3">
+
+                                <div class="col-lg-6">
+                                    <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Phone number') }}</label>
+                                    <div class="col-lg-12">
+                                        <input id="name" type="text" class="form-control" name="phone_number" value="{{old('phone_number')}}" autocomplete="phone"   autofocus>
+                                    </div>
+                                </div>
+
                                 <div class="col-lg-6">
                                     <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Received From') }}</label>
                                     <div class="col-lg-12">
-                                        <input type="text" class="form-control" name="received_from" value="{{old('received_from')}}" required>
+                                        <input type="text" class="form-control" name="received_from" value="{{old('received_from')}}" >
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Date') }}</label>
                                     <div class="col-lg-12">
-                                        <input type="date" class="form-control" name="date" value="{{old('date')}}" required>
+                                        <input type="date" class="form-control" name="date" value="{{old('date')}}" >
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Company name') }}</label>
                                     <div class="col-lg-12">
-                                        <input type="text" class="form-control" name="company_name" value="{{old('company_name')}}" required>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Phone number') }}</label>
-                                    <div class="col-lg-12">
-                                        <input id="name" type="text" class="form-control" name="phone_number" value="{{old('phone_number')}}" required  autofocus>
+                                        <input type="text" class="form-control" name="company_name" value="{{old('company_name')}}" >
                                     </div>
                                 </div>
 
                                 <div class="col-lg-6">
                                     <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Email') }}</label>
                                     <div class="col-lg-12">
-                                        <input type="email" class="form-control" name="email" value="{{old('email')}}" required>
+                                        <input type="email" class="form-control" name="email" value="{{old('email')}}" >
                                     </div>
                                 </div>
 
                                 <div class="col-lg-6">
                                     <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Amount') }}</label>
                                     <div class="col-lg-12">
-                                        <input type="text" class="form-control" name="amount" value="{{old('amount')}}" required>
+                                        <input type="text" class="form-control" name="amount" value="{{old('amount')}}" >
                                     </div>
                                 </div>
 
-                                <div class="col-lg-12">
-                                    <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Address') }}</label>
+                                <div class="col-lg-6">
+                                    <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Reference by') }}</label>
                                     <div class="col-lg-12">
-                                        <textarea type="text" class="form-control" name="address" rows="3">{{old('address')}}</textarea>
+                                        <input type="text" class="form-control" name="reference_by" value="{{old('reference_by')}}" >
                                     </div>
                                 </div>
+
+                                <div class="col-lg-6">
+                                    <label for="name" class="col-lg-4 col-form-label mt-2 text-md-left">{{ __('Payment in') }}</label>
+                                    <div class="col-lg-12">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="payment_in" id="payment_in1"  value="PKR">
+                                            <label class="form-check-label" for="payment_in1">PKR</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="payment_in" id="payment_in2" value="$">
+                                            <label class="form-check-label" for="payment_in2">USD</label>
+                                        </div>
+                                    </div>
+                                </div>
+
 
                                 <div class="col-lg-12">
                                     <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Deposited by') }}</label>
                                     <div class="col-lg-12">
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="deposited_by" id="deposited_by1" checked value="Bank draft">
+                                            <input class="form-check-input" type="radio" name="deposited_by" id="deposited_by1"  value="Bank draft">
                                             <label class="form-check-label" for="deposited_by1">Bank draft</label>
                                         </div>
                                         <div class="form-check form-check-inline">
@@ -83,29 +100,41 @@
                                             <input class="form-check-input" type="radio" name="deposited_by" id="deposited_by5" value="Online">
                                             <label class="form-check-label" for="deposited_by5">Online</label>
                                         </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="deposited_by" id="deposited_by6" value="Paypal">
+                                            <label class="form-check-label" for="deposited_by6">Paypal</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="deposited_by" id="deposited_by7" value="Stripe">
+                                            <label class="form-check-label" for="deposited_by7">Stripe</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="deposited_by" id="deposited_by8" value="With in country">
+                                            <label class="form-check-label" for="deposited_by8">With in country</label>
+                                        </div>
                                     </div>
                                 </div>
 
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 mt-2" >
                                     <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Bank name') }}</label>
                                     <div class="col-lg-12">
-                                        <input type="text" class="form-control" name="bank_name" value="{{old('bank_name')}}" required>
+                                        <input type="text" class="form-control" name="bank_name" value="{{old('bank_name')}}" >
 
                                     </div>
                                 </div>
 
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 mt-2">
                                     <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Cheque / Pay Order No') }}</label>
                                     <div class="col-lg-12">
-                                        <input type="text" class="form-control" name="cheque_pay_order_no" value="{{old('cheque_pay_order_no')}}" required>
+                                        <input type="text" class="form-control" name="cheque_pay_order_no" value="{{old('cheque_pay_order_no')}}" >
 
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
-                                    <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Deposited by') }}</label>
+                                    <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Amount type') }}</label>
                                     <div class="col-lg-12">
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="amount_type" id="amount_type1" checked value="Zakat">
+                                            <input class="form-check-input" type="radio" name="amount_type" id="amount_type1"  value="Zakat">
                                             <label class="form-check-label" for="amount_type1">Zakat</label>
                                         </div>
                                         <div class="form-check form-check-inline">
@@ -125,10 +154,46 @@
                                         <input type="file" class="form-control" name="image" />
                                     </div>
                                 </div>
+
+                                <div class="col-lg-6">
+                                    <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Street') }}</label>
+                                    <div class="col-lg-12">
+                                        <input type="text" class="form-control" name="street" value="{{old('street')}}" >
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Province') }}</label>
+                                    <div class="col-lg-12">
+                                        <input type="text" class="form-control" name="province" value="{{old('province')}}" >
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('City') }}</label>
+                                    <div class="col-lg-12">
+                                        <input type="text" class="form-control" name="city" value="{{old('city')}}" >
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Country') }}</label>
+                                    <div class="col-lg-12">
+                                        <input type="text" class="form-control" name="country" value="{{old('country')}}" >
+                                    </div>
+                                </div>
+
+
+                                <div class="col-lg-12">
+                                    <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Address') }}</label>
+                                    <div class="col-lg-12">
+                                        <textarea type="text" class="form-control" name="address" rows="3">{{old('address')}}</textarea>
+                                    </div>
+                                </div>
+
                             </div>
 
-
-                            <div class="row mb-0">
+                            <div class="row mb-0 mt-3">
                                 <div class="col-md-6 offset-md-5">
                                     <button type="submit" class="btn btn-primary">
                                         {{ __('Save') }}

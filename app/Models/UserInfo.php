@@ -22,6 +22,12 @@ class UserInfo extends Model
         'date',
         'email',
         'cheque_pay_order_no',
+        'payment_in',
+        'reference_by',
+        'street',
+        'province',
+        'city',
+        'country',
     ];
 
     public function user(){

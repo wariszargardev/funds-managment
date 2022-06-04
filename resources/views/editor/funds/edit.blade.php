@@ -14,52 +14,71 @@
                             <div class="row mb-3">
                                 @include('component.messages')
                             </div>
+
                             <div class="row mb-3">
+
+                                <div class="col-lg-6">
+                                    <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Phone number') }}</label>
+                                    <div class="col-lg-12">
+                                        <input id="name" readonly type="text" class="form-control" name="phone_number" value="{{$fund->user->phone_number}}"  autofocus>
+                                    </div>
+                                </div>
+
                                 <div class="col-lg-6">
                                     <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Received From') }}</label>
                                     <div class="col-lg-12">
-                                        <input type="text" class="form-control" name="received_from" value="{{$fund->received_from}}" required>
+                                        <input type="text" class="form-control" name="received_from" value="{{$fund->received_from}}" >
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Date') }}</label>
                                     <div class="col-lg-12">
-                                        <input type="date" class="form-control" name="date" value="{{$fund->date}}" required>
+                                        <input type="date" class="form-control" name="date" value="{{$fund->date}}" >
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Company name') }}</label>
                                     <div class="col-lg-12">
-                                        <input type="text" class="form-control" name="company_name" value="{{$fund->company_name}}" required>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Phone number') }}</label>
-                                    <div class="col-lg-12">
-                                        <input id="name" disabled type="text" class="form-control" name="phone_number" value="{{$fund->user->phone_number}}" required  autofocus>
+                                        <input type="text" class="form-control" name="company_name" value="{{$fund->company_name}}" >
                                     </div>
                                 </div>
 
                                 <div class="col-lg-6">
                                     <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Email') }}</label>
                                     <div class="col-lg-12">
-                                        <input type="email" class="form-control" name="email" value="{{$fund->email}}" required>
+                                        <input type="email" class="form-control" name="email" value="{{$fund->email}}" >
                                     </div>
                                 </div>
 
                                 <div class="col-lg-6">
                                     <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Amount') }}</label>
                                     <div class="col-lg-12">
-                                        <input type="text" class="form-control" name="amount" value="{{$fund->amount}}" required>
+                                        <input type="text" class="form-control" name="amount" value="{{$fund->amount}}" >
                                     </div>
                                 </div>
 
-                                <div class="col-lg-12">
-                                    <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Address') }}</label>
+                                <div class="col-lg-6">
+                                    <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Reference by') }}</label>
                                     <div class="col-lg-12">
-                                        <textarea type="text" class="form-control" name="address" rows="3">{{$fund->address}}</textarea>
+                                        <input type="text" class="form-control" name="reference_by" value="{{$fund->reference_by}}" >
                                     </div>
                                 </div>
+
+                                <div class="col-lg-6">
+                                    <label for="name" class="col-lg-4 col-form-label mt-2 text-md-left">{{ __('Payment in') }}</label>
+                                    <div class="col-lg-12">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="payment_in" id="payment_in1" {{$fund->payment_in == 'PKR' ? "checked" : ''}}  value="PKR">
+                                            <label class="form-check-label" for="payment_in1">PKR</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="payment_in" id="payment_in2" {{$fund->payment_in == '$' ? "checked" : ''}} value="$">
+                                            <label class="form-check-label" for="payment_in2">USD</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+
                                 <div class="col-lg-6">
 
                                 </div>
@@ -86,13 +105,25 @@
                                             <input class="form-check-input" {{$fund->deposited_by == 'Online' ? "checked" : ''}} type="radio" name="deposited_by" id="deposited_by5" value="Online">
                                             <label class="form-check-label" for="deposited_by5">Online</label>
                                         </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="deposited_by" id="deposited_by6" {{$fund->deposited_by == 'Paypal' ? "checked" : ''}}  value="Paypal">
+                                            <label class="form-check-label" for="deposited_by6">Paypal</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="deposited_by" id="deposited_by7" {{$fund->deposited_by == 'Stripe' ? "checked" : ''}}  value="Stripe">
+                                            <label class="form-check-label" for="deposited_by7">Stripe</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="deposited_by" id="deposited_by8" {{$fund->deposited_by == 'With in country' ? "checked" : ''}}  value="With in country">
+                                            <label class="form-check-label" for="deposited_by8">With in country</label>
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-6">
                                     <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Bank name') }}</label>
                                     <div class="col-lg-12">
-                                        <input type="text" class="form-control" name="bank_name" value="{{$fund->bank_name}}" required>
+                                        <input type="text" class="form-control" name="bank_name" value="{{$fund->bank_name}}" >
 
                                     </div>
                                 </div>
@@ -100,7 +131,7 @@
                                 <div class="col-lg-6">
                                     <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Cheque / Pay Order No') }}</label>
                                     <div class="col-lg-12">
-                                        <input type="text" class="form-control" name="cheque_pay_order_no" value="{{$fund->cheque_pay_order_no}}" required>
+                                        <input type="text" class="form-control" name="cheque_pay_order_no" value="{{$fund->cheque_pay_order_no}}" >
 
                                     </div>
                                 </div>
@@ -132,6 +163,43 @@
                                         <img src="{{asset('funds/'.$fund->image)}}" class="img img-thumbnail">
                                     </div>
                                 </div>
+
+                                <div class="col-lg-6">
+                                    <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Street') }}</label>
+                                    <div class="col-lg-12">
+                                        <input type="text" class="form-control" name="street" value="{{$fund->street}}" >
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Province') }}</label>
+                                    <div class="col-lg-12">
+                                        <input type="text" class="form-control" name="province" value="{{$fund->province}}" >
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('City') }}</label>
+                                    <div class="col-lg-12">
+                                        <input type="text" class="form-control" name="city" value="{{$fund->city}}" >
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Country') }}</label>
+                                    <div class="col-lg-12">
+                                        <input type="text" class="form-control" name="country" value="{{$fund->country}}" >
+                                    </div>
+                                </div>
+
+
+                                <div class="col-lg-12">
+                                    <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Address') }}</label>
+                                    <div class="col-lg-12">
+                                        <textarea type="text" class="form-control" name="address" rows="3">{{$fund->address}}</textarea>
+                                    </div>
+                                </div>
+
                             </div>
 
 

@@ -14,6 +14,27 @@ use Illuminate\Support\Facades\Mail;
 
 class FundsController extends Controller
 {
+    public $validate_field = [
+        'phone_number' => ['required', 'string' ,'max:255'],
+        'received_from' => ['required', 'string', 'max:255'],
+        'date' => ['required', 'date'],
+        'company_name' => ['required', 'string' ,'max:255'],
+        'email' => ['nullable', 'string'],
+        'amount' => ['required', 'string'],
+        'reference_by' => ['required', 'string'],
+        'payment_in' => ['required', 'string'],
+        'deposited_by' => ['required'],
+        'bank_name' => ['required', 'string','max:255'],
+        'cheque_pay_order_no' => ['required', 'string','max:255'],
+        'amount_type' => ['required'],
+        'image' => ['required', 'mimes:png,jpeg,jpg'],
+        'address' => ['required', 'string'],
+        'street' => ['required', 'string'],
+        'province' => ['required', 'string'],
+        'city' => ['required', 'string'],
+        'country' => ['required', 'string'],
+    ];
+
     public function index(){
         $user_id= Auth::guard('editor')->id();
         $funds = User::where('editor_id',$user_id)->pluck('id')->toArray();
@@ -27,20 +48,7 @@ class FundsController extends Controller
     }
 
     public function store(Request $request){
-        $request->validate([
-            'received_from' => ['required', 'string', 'max:255'],
-            'date' => ['required', 'date'],
-            'company_name' => ['required', 'string' ,'max:255'],
-            'phone_number' => ['required', 'string' ,'max:255'],
-            'email' => ['required', 'string'],
-            'amount' => ['required', 'string'],
-            'address' => ['nullable', 'string'],
-            'deposited_by' => ['required'],
-            'bank_name' => ['required', 'string','max:255'],
-            'cheque_pay_order_no' => ['required', 'string','max:255'],
-            'amount_type' => ['required'],
-            'image' => ['nullable', 'mimes:png,jpeg,jpg'],
-        ]);
+        $request->validate($this->validate_field);
 
         $phone_number = $request->phone_number;
         $user = User::where(['phone_number'=>$phone_number,'editor_id'=>Auth::guard('editor')->id()])->first();
@@ -66,6 +74,12 @@ class FundsController extends Controller
             'date'=>$request->date,
             'email'=>$request->email,
             'cheque_pay_order_no'=>$request->cheque_pay_order_no,
+            'payment_in' => $request->payment_in,
+            'reference_by' => $request->reference_by,
+            'street' => $request->street,
+            'province' => $request->province,
+            'city' => $request->city,
+            'country' => $request->country,
         ]);
         if (env('IS_ENABLED_SEND_EMAIL') == 1){
             try {
@@ -100,25 +114,14 @@ class FundsController extends Controller
     }
 
     public function update(Request $request, $id){
-        $request->validate([
-            'received_from' => ['required', 'string', 'max:255'],
-            'date' => ['required', 'date'],
-            'company_name' => ['required', 'string' ,'max:255'],
-            'email' => ['required', 'string'],
-            'amount' => ['required', 'string'],
-            'address' => ['nullable', 'string'],
-            'deposited_by' => ['required'],
-            'bank_name' => ['required', 'string','max:255'],
-            'cheque_pay_order_no' => ['required', 'string','max:255'],
-            'amount_type' => ['required'],
-            'image' => ['nullable', 'mimes:png,jpeg,jpg'],
-        ]);
+        $fields = $this->validate_field;
+        unset($fields['image'][0]);
+        $request->validate($fields);
         $user_info =UserInfo::find($id);
         $file_name = $user_info->image;
         if ($request->hasFile('image')) {
             $file_name = $this->uploadMediaFile($request, 'image', 'funds');
         }
-
         $user_info->received_from = $request->received_from;
         $user_info->company_name = $request->company_name;
         $user_info->address = $request->address;
@@ -130,11 +133,14 @@ class FundsController extends Controller
         $user_info->date = $request->date;
         $user_info->email = $request->email;
         $user_info->cheque_pay_order_no = $request->cheque_pay_order_no;
-
+        $user_info->payment_in = $request->payment_in;
+        $user_info->reference_by = $request->reference_by;
+        $user_info->street = $request->street;
+        $user_info->province = $request->province;
+        $user_info->city = $request->city;
+        $user_info->country = $request->country;
         $user_info->save();
-
         return redirect()->route('editor.funds.index')->withSuccess('Record update successfully');
-
     }
 
     public function uploadMediaFile($file, $input_name, $location)
