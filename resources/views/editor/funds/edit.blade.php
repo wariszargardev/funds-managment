@@ -36,9 +36,24 @@
                                 <div class="col-lg-6">
                                     <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Phone number') }}</label>
                                     <div class="col-lg-12">
-                                        <input id="name" disabled type="text" class="form-control" name="phone_number" value="{{$fund->phone_number}}" required  autofocus>
+                                        <input id="name" disabled type="text" class="form-control" name="phone_number" value="{{$fund->user->phone_number}}" required  autofocus>
                                     </div>
                                 </div>
+
+                                <div class="col-lg-6">
+                                    <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Email') }}</label>
+                                    <div class="col-lg-12">
+                                        <input type="email" class="form-control" name="email" value="{{$fund->email}}" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Amount') }}</label>
+                                    <div class="col-lg-12">
+                                        <input type="text" class="form-control" name="amount" value="{{$fund->amount}}" required>
+                                    </div>
+                                </div>
+
                                 <div class="col-lg-12">
                                     <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Address') }}</label>
                                     <div class="col-lg-12">
@@ -46,16 +61,7 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
-                                    <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Amount') }}</label>
-                                    <div class="col-lg-12">
-                                        <input type="text" class="form-control" name="amount" value="{{$fund->amount}}" required>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-{{--                                    <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('In words') }}</label>--}}
-{{--                                    <div class="col-lg-12">--}}
-{{--                                        .....--}}
-{{--                                    </div>--}}
+
                                 </div>
                                 <div class="col-lg-12">
                                     <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Deposited by') }}</label>

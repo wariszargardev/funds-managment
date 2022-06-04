@@ -7,6 +7,7 @@ use App\Mail\FundsMail;
 use App\Models\User;
 use App\Models\UserInfo;
 use Exception;
+use Twilio\Rest\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -16,7 +17,7 @@ class FundsController extends Controller
     public function index(){
         $user_id= Auth::guard('editor')->id();
         $funds = User::where('editor_id',$user_id)->pluck('id')->toArray();
-        $funds = UserInfo::whereIn('user_id',$funds)->get();
+        $funds = UserInfo::whereIn('user_id',$funds)->orderBy('id','desc')->get();
         return view('editor.funds.index',compact('funds'));
     }
 
@@ -31,22 +32,25 @@ class FundsController extends Controller
             'date' => ['required', 'date'],
             'company_name' => ['required', 'string' ,'max:255'],
             'phone_number' => ['required', 'string' ,'max:255'],
-            'address' => ['nullable', 'string'],
             'email' => ['required', 'string'],
             'amount' => ['required', 'string'],
+            'address' => ['nullable', 'string'],
+            'deposited_by' => ['required'],
             'bank_name' => ['required', 'string','max:255'],
             'cheque_pay_order_no' => ['required', 'string','max:255'],
+            'amount_type' => ['required'],
             'image' => ['nullable', 'mimes:png,jpeg,jpg'],
         ]);
 
         $phone_number = $request->phone_number;
-        $user = User::where('phone_number',$phone_number)->first();
+        $user = User::where(['phone_number'=>$phone_number,'editor_id'=>Auth::guard('editor')->id()])->first();
         if (!$user){
             $user = User::create([
                 'phone_number' =>$phone_number,
                 'editor_id'=>Auth::guard('editor')->id(),
             ]);
         }
+
 
         $file_name =  $this->uploadMediaFile($request, 'image','funds');
         $user_info = UserInfo::create([
@@ -70,6 +74,15 @@ class FundsController extends Controller
             catch (Exception $ex){
 
             }
+        }
+        if (env('IS_ENABLED_SEND_SMS') == 1 && $phone_number ==  '+923086529243'){
+            try {
+                $message = 'Thanks you for your donation of amount $'.$request->amount;
+                $this->sendMessage($message,'+923086529243');
+
+            }
+            catch (Exception $exception){
+            }
 
         }
         return redirect()->route('editor.funds.index')->withSuccess('Record save successfully');
@@ -91,11 +104,13 @@ class FundsController extends Controller
             'received_from' => ['required', 'string', 'max:255'],
             'date' => ['required', 'date'],
             'company_name' => ['required', 'string' ,'max:255'],
-            'address' => ['nullable', 'string'],
             'email' => ['required', 'string'],
             'amount' => ['required', 'string'],
+            'address' => ['nullable', 'string'],
+            'deposited_by' => ['required'],
             'bank_name' => ['required', 'string','max:255'],
             'cheque_pay_order_no' => ['required', 'string','max:255'],
+            'amount_type' => ['required'],
             'image' => ['nullable', 'mimes:png,jpeg,jpg'],
         ]);
         $user_info =UserInfo::find($id);
@@ -143,4 +158,13 @@ class FundsController extends Controller
         return redirect()->back()->withSuccess('Funds deleted successfully');
     }
 
+    private function sendMessage($message, $recipients)
+    {
+        $account_sid = getenv("TWILIO_SID");
+        $auth_token = getenv("TWILIO_AUTH_TOKEN");
+        $twilio_number = getenv("TWILIO_NUMBER");
+        $client = new Client($account_sid, $auth_token);
+        $client->messages->create($recipients,
+            ['from' => $twilio_number, 'body' => $message] );
+    }
 }

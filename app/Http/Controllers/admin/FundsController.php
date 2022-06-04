@@ -31,7 +31,7 @@ class FundsController extends Controller
             $funds = $funds->orWhere('bank_name', 'like', '%' . $searchText. '%');
             $funds = $funds->orWhere('deposited_by', 'like', '%' . $searchText. '%');
         }
-        $funds = $funds->get();
+        $funds = $funds->orderBy('id','desc')->get();
         return view('admin.funds.index',compact('funds'));
     }
 
