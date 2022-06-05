@@ -94,11 +94,11 @@
                             <p class="navbar-brand" >No record found.</p>
                         @endif
                     </div>
-                    @if ($users->hasPages())
-                        <div class="d-flex justify-content-center">
-                            {!! $users->links() !!}
-                        </div>
-                    @endif
+{{--                    @if ($users->hasPages())--}}
+{{--                        <div class="d-flex justify-content-center">--}}
+{{--                            {!! $users->links() !!}--}}
+{{--                        </div>--}}
+{{--                    @endif--}}
                 </div>
             </div>
         </div>

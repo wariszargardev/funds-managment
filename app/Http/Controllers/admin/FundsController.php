@@ -154,7 +154,12 @@ class FundsController extends Controller
             $users = $users->where('user_infos.date',Carbon::parse($request->end_date)->format('Y-m-d'));
         }
         $users = $users->groupBy('user_infos.user_id');
-        $users = $users->paginate(30);
+
+        $users = $users->get();
+//        $users = $users->paginate(30);
+        if($request->sort_by != null && $request->sort_by != ''){
+            $users =  $users->sortByDesc($request->sort_by);
+        }
         return view('admin.funds.summary',compact('users'));
     }
 }
