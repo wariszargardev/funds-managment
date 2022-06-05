@@ -38,6 +38,8 @@ Route::group(['middleware' => ['auth:admin']], function () {
             Route::get('/editor/{editor}',[AdminEditorController::class,'destroy'])->name('editor.destroy');
             Route::get('/export/{id?}',[AdminFundsController::class,'export'])->name('funds.export');
             Route::resource('/funds',AdminFundsController::class);
+            Route::get('/funds-summary', [AdminFundsController::class, 'summary'])->name('funds.summary');
+
 
         });
     });

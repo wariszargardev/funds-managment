@@ -38,7 +38,7 @@ class FundsController extends Controller
     public function index(){
         $user_id= Auth::guard('editor')->id();
         $funds = User::where('editor_id',$user_id)->pluck('id')->toArray();
-        $funds = UserInfo::whereIn('user_id',$funds)->orderBy('id','desc')->get();
+        $funds = UserInfo::whereIn('user_id',$funds)->orderBy('id','desc')->paginate(30);
         return view('editor.funds.index',compact('funds'));
     }
 

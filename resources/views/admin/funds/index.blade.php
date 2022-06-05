@@ -70,6 +70,11 @@
                             <p class="navbar-brand" >No record found.</p>
                         @endif
                     </div>
+                    @if ($funds->hasPages())
+                        <div class="d-flex justify-content-center">
+                            {!! $funds->links() !!}
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

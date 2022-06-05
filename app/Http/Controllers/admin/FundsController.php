@@ -31,7 +31,7 @@ class FundsController extends Controller
             $funds = $funds->orWhere('bank_name', 'like', '%' . $searchText. '%');
             $funds = $funds->orWhere('deposited_by', 'like', '%' . $searchText. '%');
         }
-        $funds = $funds->orderBy('id','desc')->get();
+        $funds = $funds->orderBy('id','desc')->paginate(30);
         return view('admin.funds.index',compact('funds'));
     }
 
@@ -113,20 +113,48 @@ class FundsController extends Controller
         foreach ($funds as $fund){
             $temp  = array();
             $temp[] = $fund->id;
-            $temp[] = $fund->email;
             $temp[] = $fund->user->phone_number;
             $temp[] = $fund->received_from;
-            $temp[] = $fund->company_name;
-            $temp[] = $fund->bank_name;
-            $temp[] = '$'.$fund->amount;
-            $temp[] = $fund->deposited_by;
-            $temp[] = $fund->amount_type;
             $temp[] = $fund->date;
+            $temp[] = $fund->company_name;
+            $temp[] = $fund->email;
+            $temp[] = $fund->payment_in;
+            $temp[] = $fund->amount;
+            $temp[] = $fund->reference_by;
+            $temp[] = $fund->deposited_by;
+            $temp[] = $fund->bank_name;
             $temp[] = $fund->cheque_pay_order_no;
+            $temp[] = $fund->amount_type;
+            $temp[] = $fund->street;
+            $temp[] = $fund->province;
+            $temp[] = $fund->city;
+            $temp[] = $fund->country;
             $temp[] = $fund->address;
             $data[] = $temp;
         }
         return Excel::download(new FundsExport($data), 'funds.xlsx');
     }
 
+    public function summary(Request $request){
+        $users = new User();
+        $users = $users->select('users.*','user_infos.user_id');
+        $users = $users->join('user_infos', 'users.id', '=', 'user_infos.user_id');
+        $column_name = $request->column_name;
+        $searchText = $request->searchText;
+        if($column_name != '' && $searchText != ''){
+            $users = $users->where('user_infos.'.$column_name, 'like', '%' . $searchText. '%');
+        }
+        if ($request->from_date != '' && $request->end_date != ''){
+            $users = $users->whereBetween('user_infos.date', [Carbon::parse($request->from_date)->format('Y-m-d'), Carbon::parse($request->end_date)->format('Y-m-d')]);
+        }
+        elseif($request->from_date != '' ){
+            $users = $users->where('user_infos.date',Carbon::parse($request->from_date)->format('Y-m-d'));
+        }
+        elseif($request->end_date != ''){
+            $users = $users->where('user_infos.date',Carbon::parse($request->end_date)->format('Y-m-d'));
+        }
+        $users = $users->groupBy('user_infos.user_id');
+        $users = $users->paginate(30);
+        return view('admin.funds.summary',compact('users'));
+    }
 }

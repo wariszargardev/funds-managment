@@ -26,16 +26,22 @@ class FundsExport implements FromCollection, WithHeadings
     {
         return [
             "ID",
-            "Email",
             "Phone number",
             "Received from",
-            "Company name",
-            "Bank name",
-            "Amount",
-            "Deposited by",
-            "Amount type",
             "Date",
+            "Company name",
+            "Email",
+            "Payment in",
+            "Amount",
+            "Reference by",
+            "Deposited by",
+            "Bank name",
             "Cheque pay order no",
+            "Amount type",
+            "Street",
+            "Province",
+            "City",
+            "Country",
             "Address",
         ];
     }
