@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-header">{{ __('Funds add') }}</div>
 
-                    <div class="card-body">
+                    <div class="card-body" id="updateNewForm">
                         <form method="POST" action="{{ route('editor.funds.store') }}" enctype="multipart/form-data">
                             @csrf
                             <div class="row mb-3">
@@ -16,9 +16,9 @@
                             <div class="row mb-3">
 
                                 <div class="col-lg-6">
-                                    <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Phone number') }}</label>
+                                    <label for="phoneNumber" class="col-lg-4 col-form-label text-md-left">{{ __('Phone number') }}</label>
                                     <div class="col-lg-12">
-                                        <input id="name" type="text" class="form-control" name="phone_number" value="{{old('phone_number')}}" autocomplete="phone"   autofocus>
+                                        <input type="text" class="form-control" name="phone_number" value="{{old('phone_number')}}" autocomplete="phone" id="phoneNumber"  autofocus>
                                     </div>
                                 </div>
 
@@ -206,4 +206,29 @@
             </div>
         </div>
     </div>
+    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#phoneNumber").keyup(function(e){
+                e.preventDefault();
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    url: "{{ route('editor.funds.check_is_exists_phone_number')  }}",
+                    method: 'get',
+                    data: {
+                        phoneNumber: $('#phoneNumber').val(),
+                    },
+                    success: function(result){
+                        if(result.status == 200){
+                            $('#updateNewForm').empty()
+                            $('#updateNewForm').append(result.view)
+                        }
+                    }});
+            });
+        });
+    </script>
 @endsection

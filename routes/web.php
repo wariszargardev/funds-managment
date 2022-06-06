@@ -60,6 +60,7 @@ Route::group(['middleware' => ['auth:editor']], function () {
             Route::resource('/funds',FundsController::class);
             Route::get('/editor/funds/{id}/destroy', [FundsController::class, 'destroy'])->name('funds.destroy');
             Route::get('/funds-show-all/{id}', [FundsController::class, 'showAll'])->name('funds.show.all');
+            Route::get('/check-phone-number-exists', [FundsController::class, 'checkIsPhoneNumberExists'])->name('funds.check_is_exists_phone_number');
 
         });
     });

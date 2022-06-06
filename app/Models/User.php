@@ -76,6 +76,6 @@ class User extends Authenticatable
     }
 
     public function getLastEntryDateAttribute(){
-        return $this->userInfos->last()->date??'';
+        return Carbon::parse($this->userInfos->last()['created_at'])->format('Y-m-d')??'';
     }
 }

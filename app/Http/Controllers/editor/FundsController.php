@@ -59,7 +59,6 @@ class FundsController extends Controller
             ]);
         }
 
-
         $file_name =  $this->uploadMediaFile($request, 'image','funds');
         $user_info = UserInfo::create([
             'received_from'=>$request->received_from,
@@ -177,5 +176,15 @@ class FundsController extends Controller
         $client = new Client($account_sid, $auth_token);
         $client->messages->create($recipients,
             ['from' => $twilio_number, 'body' => $message] );
+    }
+
+    public function checkIsPhoneNumberExists(Request $request){
+        $phoneNumber =  $request->phoneNumber;
+        $user = User::where('phone_number',$phoneNumber)->get()->first();
+        if ($user){
+            $fund = $user->userInfos->last();
+            $view =  view('editor.funds.create_pre_filled_form',compact('fund'))->render();
+            return response()->json(['view'=> $view, 'status' => 200]);
+        }
     }
 }

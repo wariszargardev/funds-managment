@@ -28,6 +28,8 @@ class UserInfo extends Model
         'province',
         'city',
         'country',
+        'created_at',
+        'updated_at',
     ];
 
     public function user(){

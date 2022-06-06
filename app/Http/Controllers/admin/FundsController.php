@@ -189,7 +189,6 @@ class FundsController extends Controller
         $users = $users->groupBy('user_infos.user_id');
 
         $users = $users->get();
-//        $users = $users->paginate(30);
         if($request->sort_by != null && $request->sort_by != ''){
             $users =  $users->sortByDesc($request->sort_by);
         }
@@ -208,6 +207,13 @@ class FundsController extends Controller
         $users = $users->get();
         if($request->sort_by != null && $request->sort_by != ''){
             $users =  $users->sortByDesc($request->sort_by);
+        }
+        if ($request->filter != '' && $request->filter != 'all'){
+            foreach ($users as $key => $user){
+                if ($user->account_status != $request->filter ){
+                    $users->forget($key);
+                }
+            }
         }
         return view('admin.funds.summary',compact('users'));
     }
