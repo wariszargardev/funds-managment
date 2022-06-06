@@ -104,8 +104,13 @@ class FundsController extends Controller
     }
 
     public function show($id){
+        $fund = UserInfo::find($id);
+        return view('editor.funds.show',compact('fund'));
+    }
+
+    public function showAll($id){
         $funds = User::with('userInfos')->find($id);
-        return view('editor.funds.show',compact('funds'));
+        return view('editor.funds.show_all',compact('funds'));
     }
 
     public function edit($id){

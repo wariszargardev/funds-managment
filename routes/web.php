@@ -39,6 +39,7 @@ Route::group(['middleware' => ['auth:admin']], function () {
             Route::get('/export/{id?}',[AdminFundsController::class,'export'])->name('funds.export');
             Route::resource('/funds',AdminFundsController::class);
             Route::get('/funds-summary', [AdminFundsController::class, 'summary'])->name('funds.summary');
+            Route::get('/funds-show-all/{id}', [AdminFundsController::class, 'showAll'])->name('funds.show.all');
 
 
         });
@@ -58,6 +59,7 @@ Route::group(['middleware' => ['auth:editor']], function () {
             Route::post('/profile-update', [EditorController::class, 'updateProfile'])->name('profile.update');
             Route::resource('/funds',FundsController::class);
             Route::get('/editor/funds/{id}/destroy', [FundsController::class, 'destroy'])->name('funds.destroy');
+            Route::get('/funds-show-all/{id}', [FundsController::class, 'showAll'])->name('funds.show.all');
 
         });
     });

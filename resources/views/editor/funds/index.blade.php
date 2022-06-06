@@ -29,7 +29,7 @@
                                         <tr>
                                             <th scope="row">{{ $loop->index + 1  }}</th>
                                             <td>
-                                                <a style="text-decoration: none" href="{{ route('editor.funds.show',$fund->user->id) }}" >                                                {{ $fund->user->phone_number??'' }}</a>
+                                                <a style="text-decoration: none" href="{{ route('editor.funds.show.all',$fund->user->id) }}" >                                                {{ $fund->user->phone_number??'' }}</a>
                                             </td>
                                             <td>{{ $fund->received_from }}</td>
                                             <td>{{ $fund->company_name }}</td>

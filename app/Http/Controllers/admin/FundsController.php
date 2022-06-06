@@ -19,7 +19,7 @@ class FundsController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function index(Request $request){
+    public function indexOld(Request $request){
         $funds = new UserInfo();
         if ($request->date){
             $funds = $funds->where('date',Carbon::parse($request->date)->format('Y-m-d'));
@@ -32,6 +32,34 @@ class FundsController extends Controller
             $funds = $funds->orWhere('deposited_by', 'like', '%' . $searchText. '%');
         }
         $funds = $funds->orderBy('id','desc')->paginate(30);
+        return view('admin.funds.index',compact('funds'));
+    }
+
+    public function index(Request $request){
+        $users = new UserInfo();
+        $users = $users->select('user_infos.*');
+        $users = $users->join('users', 'user_infos.user_id', '=', 'users.id' );
+        $column_name = $request->column_name;
+        $searchText = $request->searchText;
+        if($column_name != '' && $searchText != ''){
+            if ($column_name == 'phone_number'){
+                $users = $users->where('users.'.$column_name, 'like', '%' . $searchText. '%');
+            }
+            else{
+                $users = $users->where('user_infos.'.$column_name, 'like', '%' . $searchText. '%');
+            }
+        }
+        if ($request->from_date != '' && $request->end_date != ''){
+            $users = $users->whereBetween('user_infos.date', [Carbon::parse($request->from_date)->format('Y-m-d'), Carbon::parse($request->end_date)->format('Y-m-d')]);
+        }
+        elseif($request->from_date != '' ){
+            $users = $users->where('user_infos.date',Carbon::parse($request->from_date)->format('Y-m-d'));
+        }
+        elseif($request->end_date != ''){
+            $users = $users->where('user_infos.date',Carbon::parse($request->end_date)->format('Y-m-d'));
+        }
+
+        $funds = $users->orderBy('id','desc')->paginate(30);
         return view('admin.funds.index',compact('funds'));
     }
 
@@ -63,8 +91,13 @@ class FundsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id){
+        $fund = UserInfo::find($id);
+        return view('admin.funds.show',compact('fund'));
+    }
+
+    public function showAll($id){
         $funds = User::with('userInfos')->find($id);
-        return view('admin.funds.show',compact('funds'));
+        return view('admin.funds.show_all',compact('funds'));
     }
 
     /**
@@ -135,7 +168,7 @@ class FundsController extends Controller
         return Excel::download(new FundsExport($data), 'funds.xlsx');
     }
 
-    public function summary(Request $request){
+    public function summaryOld(Request $request){
         $users = new User();
         $users = $users->select('users.*','user_infos.user_id');
         $users = $users->join('user_infos', 'users.id', '=', 'user_infos.user_id');
@@ -157,6 +190,22 @@ class FundsController extends Controller
 
         $users = $users->get();
 //        $users = $users->paginate(30);
+        if($request->sort_by != null && $request->sort_by != ''){
+            $users =  $users->sortByDesc($request->sort_by);
+        }
+        return view('admin.funds.summary',compact('users'));
+    }
+
+    public function summary(Request $request){
+        $users = new User();
+        $users = $users->select('users.*','user_infos.user_id');
+        $users = $users->join('user_infos', 'users.id', '=', 'user_infos.user_id');
+        $searchText = $request->searchText;
+        if($searchText != ''){
+            $users = $users->where('users.phone_number', 'like', '%' . $searchText. '%');
+        }
+        $users = $users->groupBy('user_infos.user_id');
+        $users = $users->get();
         if($request->sort_by != null && $request->sort_by != ''){
             $users =  $users->sortByDesc($request->sort_by);
         }
