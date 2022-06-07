@@ -36,7 +36,7 @@
                                             <td>{{ $fund->bank_name }}</td>
                                             <td>${{ $fund->amount }}</td>
                                             <td>
-                                                <a href="{{ route('editor.funds.show',$fund->user->id) }}" class="btn btn-outline-primary">Show</a>
+                                                <a href="{{ route('editor.funds.show',$fund->id) }}" class="btn btn-outline-primary">Show</a>
                                                 <a href="{{ route('editor.funds.edit',$fund->id) }}" class="btn btn-outline-primary">Edit</a>
                                                 <a href="{{ route('editor.funds.destroy',$fund->id) }}"  onclick="return confirm('Are you sure?')" class="btn btn-outline-secondary">Delete</a>
                                             </td>
