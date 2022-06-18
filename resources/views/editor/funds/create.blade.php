@@ -66,11 +66,11 @@
                                     <label for="name" class="col-lg-4 col-form-label mt-2 text-md-left">{{ __('Payment in') }}</label>
                                     <div class="col-lg-12">
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="payment_in" id="payment_in1"  {{old('payment_in' == 'PKR' ? 'checked':'')}} value="PKR">
+                                            <input class="form-check-input" type="radio" name="payment_in" id="payment_in1"  {{old('payment_in') == 'PKR' ? 'checked':''}} value="PKR" checked>
                                             <label class="form-check-label" for="payment_in1">PKR</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="payment_in" id="payment_in2" {{old('payment_in' == '$' ? 'checked':'')}} value="$">
+                                            <input class="form-check-input" type="radio" name="payment_in" id="payment_in2" {{old('payment_in') == '$' ? 'checked':''}} value="$">
                                             <label class="form-check-label" for="payment_in2">USD</label>
                                         </div>
                                     </div>
@@ -81,7 +81,7 @@
                                     <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Deposited by') }}</label>
                                     <div class="col-lg-12">
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="deposited_by" id="deposited_by1"  {{old('deposited_by') == 'Bank draft' ? 'checked' : ''}} value="Bank draft">
+                                            <input class="form-check-input" type="radio" name="deposited_by" id="deposited_by1"  {{old('deposited_by') == 'Bank draft' ? 'checked' : ''}} value="Bank draft" checked>
                                             <label class="form-check-label" for="deposited_by1">Bank draft</label>
                                         </div>
                                         <div class="form-check form-check-inline">
@@ -134,15 +134,15 @@
                                     <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Amount type') }}</label>
                                     <div class="col-lg-12">
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="amount_type" id="amount_type1"  {{old('amount_type'  == 'Zakat' ? 'checked':"")}} value="Zakat">
+                                            <input class="form-check-input" type="radio" name="amount_type" id="amount_type1"  {{old('amount_type')  == 'Zakat' ? 'checked':""}} value="Zakat">
                                             <label class="form-check-label" for="amount_type1">Zakat</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="amount_type" id="amount_type2" {{old('amount_type'  == 'Sadqa' ? 'checked':"")}} value="Sadqa">
+                                            <input class="form-check-input" type="radio" name="amount_type" id="amount_type2" {{old('amount_type')  == 'Sadqa' ? 'checked':""}} value="Sadqa">
                                             <label class="form-check-label" for="amount_type2">Sadqa</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="amount_type" id="amount_type3" {{old('amount_type'  == 'Donation' ? 'checked':"")}} value="Donation">
+                                            <input class="form-check-input" type="radio" name="amount_type" id="amount_type3" {{old('amount_type')  == 'Donation' ? 'checked':""}} value="Donation" checked>
                                             <label class="form-check-label" for="amount_type3">Donation</label>
                                         </div>
                                     </div>
