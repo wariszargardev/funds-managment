@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\editor;
 
 use App\Http\Controllers\Controller;
+use App\Models\Editor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -29,6 +30,13 @@ class EditorController extends Controller
             'phone_number' => ['required', 'string' ,'max:255'],
             'password' => ['nullable', 'string', 'min:8', 'confirmed'],
         ]);
+
+
+        $admin = Editor::where('email',$request->email)->where('id','!=',Auth::guard('editor')->user()->id)->get()->first();
+        if ($admin){
+            return redirect()->back()->withErrors(['email_unique'=>'Email already exists']);
+        }
+
 
         $admin = Auth::guard('editor')->user();
         if($request->password){

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
+use App\Models\Editor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -29,6 +31,11 @@ class AdminController extends Controller
             'phone_number' => ['required', 'string' ,'max:255'],
             'password' => ['nullable', 'string', 'min:8', 'confirmed'],
         ]);
+
+        $admin = Admin::where('email',$request->email)->where('id','!=',Auth::guard('admin')->user()->id)->get()->first();
+        if ($admin){
+            return redirect()->back()->withErrors(['email_unique'=>'Email already exists']);
+        }
 
         $admin = Auth::guard('admin')->user();
         if($request->password){
