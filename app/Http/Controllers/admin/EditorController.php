@@ -7,6 +7,7 @@ use App\Models\Editor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class EditorController extends Controller
 {
@@ -90,13 +91,17 @@ class EditorController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255'],
             'phone_number' => ['required', 'string' ,'max:255'],
             'password' => ['nullable', 'string', 'min:8', 'confirmed'],
         ]);
-
+        $editor = Editor::where('email',$request->email)->where('id','!=',$id)->get()->first();
+        if ($editor){
+            return redirect()->back()->withErrors(['email_unique'=>'Email already exists']);
+        }
         $editor = Editor::find($id);
         if($request->password){
             $editor->password = Hash::make($request->password);
