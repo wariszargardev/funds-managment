@@ -5,7 +5,7 @@
     <h3>Donation info</h3>
     <div class="col-md-4 mb-5">
         <div class="card" style="width: 100%;">
-            <img src="{{asset('funds/'.$fund->image)}}" class="card-img-top" alt="...">
+            <img src="{{('/funds/'.$fund->image)}}" class="card-img-top" alt="...">
             <div class="card-body">
                 <p class="card-text"><b>Phone number: </b>{{$fund->user->phone_number}}</p>
                 <p class="card-text"><b>Date: </b>{{$fund->date}}</p>

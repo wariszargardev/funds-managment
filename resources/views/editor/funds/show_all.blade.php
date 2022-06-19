@@ -8,7 +8,7 @@
             @foreach($funds->userInfos as $fund)
                 <div class="col-md-4 mb-5">
                     <div class="card" style="width: 100%;">
-                        <img style="height: 200px" src="{{asset('funds/'.$fund->image)}}" class="card-img-top" alt="...">
+                        <img style="height: 200px" src="{{('/funds/'.$fund->image)}}" class="card-img-top" alt="...">
                         <div class="card-body">
                             <p class="card-text"><b>Date: </b>{{$fund->date}}</p>
                             <p class="card-text"><b>Received from: </b>{{$fund->received_from}}</p>

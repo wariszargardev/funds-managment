@@ -160,7 +160,7 @@
                                     </div>
 
                                     <div>
-                                        <img src="{{asset('funds/'.$fund->image)}}" class="img img-thumbnail">
+                                        <img src="{{'/funds/'.$fund->image}}" class="img img-thumbnail">
                                     </div>
                                 </div>
 
