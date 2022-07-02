@@ -163,7 +163,7 @@ class FundsController extends Controller
         if ($file->hasFile($input_name)) {
             ini_set('memory_limit', '-1');
             $file = $file->file($input_name);
-            $file_name = time() . '.' . $file->getClientOriginalName();
+            $file_name = time().$file->getClientOriginalName();
             $file->move($location, $file_name);
             return $file_name;
         }
