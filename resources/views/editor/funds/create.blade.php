@@ -29,9 +29,9 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
-                                    <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Date') }}</label>
+                                    <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Date(mm/dd/yyyy)') }}</label>
                                     <div class="col-lg-12">
-                                        <input type="date" class="form-control" name="date" value="{{old('date')}}" >
+                                        <input  placeholder="mm/dd/yyyy"  type="date" class="form-control" name="date" value="{{old('date')}}" >
                                     </div>
                                 </div>
                                 <div class="col-lg-6">

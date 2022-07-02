@@ -38,14 +38,14 @@
 
                             <div class="col-md-2">
                                 <div class="form-group">
-                                    <label>From date/Single date</label>
-                                    <input type="date" name="from_date" class="form-control" value="{{request()->from_date}}" />
+                                    <label>From date(mm/dd/yyyy)</label>
+                                    <input placeholder="mm/dd/yyyy" type="date" name="from_date" class="form-control" value="{{request()->from_date}}" />
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
-                                    <label>End date</label>
-                                    <input type="date" name="end_date" class="form-control" value="{{request()->end_date}}" />
+                                    <label>End date(mm/dd/yyyy)</label>
+                                    <input  placeholder="mm/dd/yyyy"  type="date" name="end_date" class="form-control" value="{{request()->end_date}}" />
                                 </div>
                             </div>
                             <div class="col-md-2">
