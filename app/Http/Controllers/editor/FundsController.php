@@ -48,7 +48,12 @@ class FundsController extends Controller
     }
 
     public function store(Request $request){
-        $request->validate($this->validate_field);
+        $fields = $this->validate_field;
+        if(!in_array($request->deposited_by, ['Bank draft','Pay order'])){
+            unset($fields['cheque_pay_order_no']);
+            unset($fields['image']);
+        }
+        $request->validate($fields);
 
         $phone_number = $request->phone_number;
         $user = User::where(['phone_number'=>$phone_number,'editor_id'=>Auth::guard('editor')->id()])->first();
@@ -69,10 +74,10 @@ class FundsController extends Controller
             'deposited_by'=>$request->deposited_by,
             'amount_type'=>$request->amount_type,
             'user_id'=>$user->id,
-            'image'=>$file_name,
+            'image'=>$file_name ?? '',
             'date'=>$request->date,
             'email'=>$request->email,
-            'cheque_pay_order_no'=>$request->cheque_pay_order_no,
+            'cheque_pay_order_no'=>$request->cheque_pay_order_no ?? '',
             'payment_in' => $request->payment_in,
             'reference_by' => $request->reference_by,
             'street' => $request->street,
@@ -119,7 +124,13 @@ class FundsController extends Controller
 
     public function update(Request $request, $id){
         $fields = $this->validate_field;
-        unset($fields['image'][0]);
+        if(!in_array($request->deposited_by, ['Bank draft','Pay order'])){
+            unset($fields['cheque_pay_order_no']);
+            unset($fields['image']);
+        }
+        else{
+            unset($fields['image'][0]);
+        }
         $request->validate($fields);
         $user_info =UserInfo::find($id);
         $file_name = $user_info->image;
@@ -133,10 +144,10 @@ class FundsController extends Controller
         $user_info->amount = $request->amount;
         $user_info->deposited_by = $request->deposited_by;
         $user_info->amount_type = $request->amount_type;
-        $user_info->image = $file_name;
+        $user_info->image = $file_name ?? '';
         $user_info->date = $request->date;
         $user_info->email = $request->email;
-        $user_info->cheque_pay_order_no = $request->cheque_pay_order_no;
+        $user_info->cheque_pay_order_no = $request->cheque_pay_order_no ?? '';
         $user_info->payment_in = $request->payment_in;
         $user_info->reference_by = $request->reference_by;
         $user_info->street = $request->street;

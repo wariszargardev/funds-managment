@@ -24,9 +24,9 @@ class CreateUserInfosTable extends Migration
             $table->string('deposited_by');
             $table->string('amount_type');
             $table->integer('user_id');
-            $table->text('image');
+            $table->text('image')->nullable();
             $table->date('date')->default(now());
-            $table->text('cheque_pay_order_no');
+            $table->text('cheque_pay_order_no')->nullable();
             // new fields
             $table->string('payment_in');//pkr or usd
             $table->string('reference_by');
