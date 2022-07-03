@@ -7,13 +7,19 @@
                 <div class="card">
                     <div class="card-header">
                         {{ __('Funds list') }}
-
-                        <a class="btn btn-outline-info float-end" href="{{route('admin.funds.export')}}">Excel Download</a>
-
+                        <form method="get" action="{{route('admin.funds.export')}}">
+                            <button class="btn btn-outline-info float-end" type="submit">Excel Download</button>
+                            <input type="hidden" name="column_name" value="{{request()->column_name}}" />
+                            <input type="hidden" name="searchText" value="{{request()->searchText}}" />
+                            <input type="hidden" name="from_date" value="{{request()->from_date}}" />
+                            <input type="hidden" name="end_date" value="{{request()->end_date}}" />
+                            <input type="hidden" name="sort_by_column" value="{{request()->sort_by_column}}" />
+                            <input type="hidden" name="sort_by" value="{{request()->sort_by}}" />
+                        </form>
                     </div>
                     <form method="get" id="date-filter">
                         <div class="row container mt-2">
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <label>Search based on</label>
                                 <select class="form-select" name="column_name" aria-label="Default select example">
                                     <option value="received_from" {{request()->column_name == '' ? 'received_from' :''}}>Received from</option>
@@ -28,25 +34,45 @@
                                     <option value="country" {{request()->column_name == 'country' ? 'selected' :''}}>Country</option>
                                 </select>
                             </div>
-
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label>Search</label>
                                     <input type="text" placeholder="Search" name="searchText" class="form-control" value="{{request()->searchText}}" />
                                 </div>
                             </div>
-
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label>From date(mm/dd/yyyy)</label>
                                     <input placeholder="mm/dd/yyyy" type="date" name="from_date" class="form-control" value="{{request()->from_date}}" />
                                 </div>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label>End date(mm/dd/yyyy)</label>
                                     <input  placeholder="mm/dd/yyyy"  type="date" name="end_date" class="form-control" value="{{request()->end_date}}" />
                                 </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label>Sort based on</label>
+                                <select class="form-select" name="sort_by_column" aria-label="Default select example">
+                                    <option value="received_from" {{request()->sort_by_column == '' ? 'received_from' :''}}>Received from</option>
+                                    <option value="phone_number" {{request()->sort_by_column == 'phone_number' ? 'selected' :''}}>Phone number</option>
+                                    <option value="company_name" {{request()->sort_by_column == 'company_name' ? 'selected' :''}}>Company name</option>
+                                    <option value="email" {{request()->sort_by_column == 'email' ? 'selected' :''}}>Email</option>
+                                    <option value="bank_name" {{request()->sort_by_column == 'bank_name' ? 'selected' :''}}>Bank name</option>
+                                    <option value="reference_by" {{request()->sort_by_column == 'reference_by' ? 'selected' :''}}>Reference by</option>
+                                    <option value="street" {{request()->sort_by_column == 'street' ? 'selected' :''}}>Street</option>
+                                    <option value="province" {{request()->sort_by_column == 'province' ? 'selected' :''}}>Province</option>
+                                    <option value="city" {{request()->sort_by_column == 'city' ? 'selected' :''}}>City</option>
+                                    <option value="country" {{request()->sort_by_column == 'country' ? 'selected' :''}}>Country</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label>Search based on</label>
+                                <select class="form-select" name="sort_by" aria-label="Default select example">
+                                    <option value="asc" {{request()->sort_by == 'asc' ? 'selected' :''}}>Ascending </option>
+                                    <option value="desc" {{request()->sort_by == 'desc' ? 'selected' :''}}>Descending </option>
+                                </select>
                             </div>
                             <div class="col-md-2">
                                 <button @class('btn btn-info mt-4') type="submit"> Search</button>

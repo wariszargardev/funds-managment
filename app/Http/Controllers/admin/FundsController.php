@@ -31,6 +31,7 @@ class FundsController extends Controller
             $funds = $funds->orWhere('bank_name', 'like', '%' . $searchText. '%');
             $funds = $funds->orWhere('deposited_by', 'like', '%' . $searchText. '%');
         }
+
         $funds = $funds->orderBy('id','desc')->paginate(30);
         return view('admin.funds.index',compact('funds'));
     }
@@ -41,6 +42,8 @@ class FundsController extends Controller
         $users = $users->join('users', 'user_infos.user_id', '=', 'users.id' );
         $column_name = $request->column_name;
         $searchText = $request->searchText;
+        $sort_by_column = $request->sort_by_column;
+        $sort_by = $request->sort_by;
         if($column_name != '' && $searchText != ''){
             if ($column_name == 'phone_number'){
                 $users = $users->where('users.'.$column_name, 'like', '%' . $searchText. '%');
@@ -59,7 +62,18 @@ class FundsController extends Controller
             $users = $users->where('user_infos.date',Carbon::parse($request->end_date)->format('Y-m-d'));
         }
 
-        $funds = $users->orderBy('id','desc')->paginate(30);
+        if($sort_by_column){
+            if ($sort_by_column == 'phone_number'){
+                $users = $users->orderBy('users.'.$sort_by_column, $sort_by);
+            }
+            else{
+                $users = $users->orderBy('user_infos.'.$sort_by_column, $sort_by);
+            }
+        }
+        else{
+            $users = $users->orderBy('users.phone_number', 'asc');
+        }
+        $funds = $users->paginate(30);
         return view('admin.funds.index',compact('funds'));
     }
 
@@ -134,14 +148,52 @@ class FundsController extends Controller
         //
     }
 
-    public function export($id=null)
+    public function export(Request $request , $id=null)
     {
-        if ($id==null) {
-            $funds = UserInfo::all();
+        $users = new UserInfo();
+        $users = $users->select('user_infos.*');
+        $users = $users->join('users', 'user_infos.user_id', '=', 'users.id' );
+        $column_name = $request->column_name;
+        $searchText = $request->searchText;
+        $sort_by_column = $request->sort_by_column;
+        $sort_by = $request->sort_by;
+        if($column_name != '' && $searchText != ''){
+            if ($column_name == 'phone_number'){
+                $users = $users->where('users.'.$column_name, 'like', '%' . $searchText. '%');
+            }
+            else{
+                $users = $users->where('user_infos.'.$column_name, 'like', '%' . $searchText. '%');
+            }
+        }
+        if ($request->from_date != '' && $request->end_date != ''){
+            $users = $users->whereBetween('user_infos.date', [Carbon::parse($request->from_date)->format('Y-m-d'), Carbon::parse($request->end_date)->format('Y-m-d')]);
+        }
+        elseif($request->from_date != '' ){
+            $users = $users->where('user_infos.date',Carbon::parse($request->from_date)->format('Y-m-d'));
+        }
+        elseif($request->end_date != ''){
+            $users = $users->where('user_infos.date',Carbon::parse($request->end_date)->format('Y-m-d'));
+        }
+
+        if($sort_by_column){
+            if ($sort_by_column == 'phone_number'){
+                $users = $users->orderBy('users.'.$sort_by_column, $sort_by);
+            }
+            else{
+                $users = $users->orderBy('user_infos.'.$sort_by_column, $sort_by);
+            }
         }
         else{
-            $funds = UserInfo::where('user_id',$id)->get();
+            $users = $users->orderBy('users.phone_number', 'asc');
         }
+
+        if ($id==null) {
+            $funds = $users->get();
+        }
+        else{
+            $funds = $users->where('users.id',$id)->get();
+        }
+
         $data = array();
         foreach ($funds as $fund){
             $temp  = array();
