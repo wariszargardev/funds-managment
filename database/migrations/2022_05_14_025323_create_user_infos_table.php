@@ -30,10 +30,11 @@ class CreateUserInfosTable extends Migration
             // new fields
             $table->string('payment_in');//pkr or usd
             $table->string('reference_by');
-            $table->string('street');
-            $table->string('province');
-            $table->string('city');
-            $table->string('country');
+            $table->string('street')->default('');
+            $table->integer('province_id');
+            $table->integer('city_id');
+            $table->integer('country_id');
+            $table->string('land_line_number');
 
             $table->timestamps();
         });

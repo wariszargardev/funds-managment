@@ -1,6 +1,7 @@
 @extends('layouts.editor')
 
 @section('content')
+
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
@@ -63,19 +64,20 @@
                                 </div>
 
                                 <div class="col-lg-6">
-                                    <label for="name" class="col-lg-4 col-form-label mt-2 text-md-left">{{ __('Payment in') }}</label>
-                                    <div class="col-lg-12">
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="payment_in" id="payment_in1"  {{old('payment_in') == 'PKR' ? 'checked':''}} value="PKR" checked>
-                                            <label class="form-check-label" for="payment_in1">PKR</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="payment_in" id="payment_in2" {{old('payment_in') == '$' ? 'checked':''}} value="$">
-                                            <label class="form-check-label" for="payment_in2">USD</label>
-                                        </div>
-                                    </div>
+                                    <label for="name" class=" col-lg-4 col-form-label text-md-left form-label   ">{{ __('Payment in') }}</label>
+                                    <select class="form-select" aria-label="Default select example" name="payment_in">
+                                        <option value="USD" {{old('payment_in') == 'USD' ? 'selected' : ''}} >USD</option>
+                                        <option value="EUR" {{old('payment_in') == 'EUR' ? 'selected' : ''}}>EUR</option>
+                                        <option value="GBP" {{old('payment_in') == 'GBP' ? 'selected' : ''}}>GBP</option>
+                                        <option value="CAD" {{old('payment_in') == 'CAD' ? 'selected' : ''}}>CAD</option>
+                                        <option value="AUD" {{old('payment_in') == 'AUD' ? 'selected' : ''}}>AUD</option>
+                                        <option value="INR" {{old('payment_in') == 'INR' ? 'selected' : ''}}>INR</option>
+                                        <option value="PKR" {{old('payment_in') == 'PKR' ? 'selected' : ''}}>PKR</option>
+                                        <option value="CNY" {{old('payment_in') == 'CNY' ? 'selected' : ''}}>CNY</option>
+                                        <option value="JPY" {{old('payment_in') == 'JPY' ? 'selected' : ''}}>JPY</option>
+                                        <option value="QAR" {{old('payment_in') == 'QAR' ? 'selected' : ''}}>QAR</option>
+                                    </select>
                                 </div>
-
 
                                 <div class="col-lg-12">
                                     <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Deposited by') }}</label>
@@ -156,33 +158,50 @@
                                 </div>
 
                                 <div class="col-lg-6">
-                                    <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Street') }}</label>
+                                    <label for="land_line_number" class="col-lg-4 col-form-label text-md-left">{{ __('Land line number') }}</label>
                                     <div class="col-lg-12">
-                                        <input type="text" class="form-control" name="street" value="{{old('street')}}" >
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-6">
-                                    <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Province') }}</label>
-                                    <div class="col-lg-12">
-                                        <input type="text" class="form-control" name="province" value="{{old('province')}}" >
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-6">
-                                    <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('City') }}</label>
-                                    <div class="col-lg-12">
-                                        <input type="text" class="form-control" name="city" value="{{old('city')}}" >
+                                        <input type="text" class="form-control" name="land_line_number" value="{{old('land_line_number')}}"  id="land_line_number"  >
                                     </div>
                                 </div>
 
                                 <div class="col-lg-6">
                                     <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Country') }}</label>
                                     <div class="col-lg-12">
-                                        <input type="text" class="form-control" name="country" value="{{old('country')}}" >
+                                        <select class="form-select" aria-label="Default select example" name="country_id" id="countrydrp">
+                                            @foreach($countries as $country)
+                                                <option  value="{{$country->id}}" {{old('country_id') ==  $country->id ? 'selected' : $country->id == 167 ? 'selected' :''}}>
+                                                    {{$country->name}}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
 
+                                <div class="col-lg-6">
+                                    <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Province') }}</label>
+                                    <div class="col-lg-12">
+                                        <select class="form-select" aria-label="Default select example" name="province_id" id="provincedrp">
+                                            @foreach($provinces as $province)
+                                                <option  value="{{$province->id}}" {{old('province_id') ==  $province->id ? 'selected' : $province->id == 3176 ? 'selected' :''}}>
+                                                    {{$province->name}}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('City') }}</label>
+                                    <div class="col-lg-12">
+                                        <select class="form-select" aria-label="Default select example" name="city_id" id="citydrp">
+                                            @foreach($cities as $city)
+                                                <option  value="{{$city->id}}" {{old('city_id') ==  $city->id ? 'selected' : $city->id == 85572 ? 'selected' :''}}>
+                                                    {{$city->name}}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
 
                                 <div class="col-lg-12">
                                     <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Address') }}</label>
@@ -194,10 +213,15 @@
                             </div>
 
                             <div class="row mb-0 mt-3">
-                                <div class="col-md-6 offset-md-5">
+                                <div class="col-md-3 offset-md-5">
+                                    <button type="button" onclick="history.back()" class="btn btn-secondary">
+                                        {{ __('Cancel') }}
+                                    </button>
+
                                     <button type="submit" class="btn btn-primary">
                                         {{ __('Save') }}
                                     </button>
+
                                 </div>
                             </div>
                         </form>
@@ -226,9 +250,56 @@
                         if(result.status == 200){
                             $('#updateNewForm').empty()
                             $('#updateNewForm').append(result.view)
+                            callAfterLoad();
                         }
                     }});
             });
+            callAfterLoad();
         });
+        function callAfterLoad(){
+
+            $("#countrydrp").on('change',function(e){
+                e.preventDefault();
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    url: "{{ route('loadProvinceCity')  }}",
+                    method: 'get',
+                    data: {
+                        countryId: $('#countrydrp').val(),
+                    },
+                    success: function(result){
+                        if(result.status == 200){
+                            $('#provincedrp').empty()
+                            $('#citydrp').empty()
+                            $('#provincedrp').append(result.view)
+                        }
+                    }});
+            });
+
+            $("#provincedrp").on('change',function(e){
+                e.preventDefault();
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    url: "{{ route('loadProvinceCity')  }}",
+                    method: 'get',
+                    data: {
+                        province: $('#provincedrp').val(),
+                    },
+                    success: function(result){
+                        if(result.status == 200){
+                            $('#citydrp').empty()
+                            $('#citydrp').append(result.view)
+                        }
+                    }});
+            });
+        }
     </script>
 @endsection

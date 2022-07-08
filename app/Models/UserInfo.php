@@ -25,14 +25,27 @@ class UserInfo extends Model
         'payment_in',
         'reference_by',
         'street',
-        'province',
-        'city',
-        'country',
+        'province_id',
+        'city_id',
+        'country_id',
+        'land_line_number',
         'created_at',
         'updated_at',
     ];
 
     public function user(){
         return $this->belongsTo(User::class);
+    }
+
+    public function getProvinceAttribute($value){
+        return Province::find($this->province_id)->name??'';
+    }
+
+    public function getCityAttribute($value){
+        return City::find($this->city_id)->name??'';
+    }
+
+    public function getCountryAttribute($value){
+        return Country::find($this->country_id)->name??'';
     }
 }

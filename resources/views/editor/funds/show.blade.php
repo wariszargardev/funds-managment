@@ -18,12 +18,14 @@
                         <p class="card-text"><b>Deposited by: </b>{{$fund->deposited_by}}</p>
                         <p class="card-text"><b>Amount type: </b>{{$fund->amount_type}}</p>
                         <p class="card-text"><b>Cheque / pay order no: </b>{{$fund->cheque_pay_order_no}}</p>
-                        <p class="card-text"><b>Street: </b>{{$fund->street}}</p>
                         <p class="card-text"><b>Province: </b>{{$fund->province}}</p>
                         <p class="card-text"><b>City: </b>{{$fund->city}}</p>
                         <p class="card-text"><b>Country: </b>{{$fund->country}}</p>
                         <p class="card-text"><b>Address: </b>{{$fund->address}}</p>
                         <div class="text-center">
+                            <button type="button" onclick="history.back()" class="btn btn-secondary">
+                                {{ __('Cancel') }}
+                            </button>
                             <a href="{{ route('editor.funds.edit',$fund->id) }}" class="btn btn-outline-primary">Edit</a>
                             <a href="{{ route('editor.funds.destroy',$fund->id) }}"  onclick="return confirm('Are you sure?')" class="btn btn-outline-secondary">Delete</a>
                         </div>

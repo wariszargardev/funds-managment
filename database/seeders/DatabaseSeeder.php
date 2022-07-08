@@ -31,5 +31,7 @@ class DatabaseSeeder extends Seeder
             'admin_id'=>1,
         ]);
 
+
+        
     }
 }

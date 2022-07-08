@@ -34,7 +34,7 @@
                                             <td>{{ $fund->received_from }}</td>
                                             <td>{{ $fund->company_name }}</td>
                                             <td>{{ $fund->bank_name }}</td>
-                                            <td>${{ $fund->amount }}</td>
+                                            <td>{{ $fund->payment_in.  $fund->amount }}</td>
                                             <td>
                                                 <a href="{{ route('editor.funds.show',$fund->id) }}" class="btn btn-outline-primary">Show</a>
                                                 <a href="{{ route('editor.funds.edit',$fund->id) }}" class="btn btn-outline-primary">Edit</a>

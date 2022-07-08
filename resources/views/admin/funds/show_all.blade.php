@@ -23,7 +23,6 @@
                             <p class="card-text"><b>Deposited by: </b>{{$fund->deposited_by}}</p>
                             <p class="card-text"><b>Amount type: </b>{{$fund->amount_type}}</p>
                             <p class="card-text"><b>Cheque / pay order no: </b>{{$fund->cheque_pay_order_no}}</p>
-                            <p class="card-text"><b>Street: </b>{{$fund->street}}</p>
                             <p class="card-text"><b>Province: </b>{{$fund->province}}</p>
                             <p class="card-text"><b>City: </b>{{$fund->city}}</p>
                             <p class="card-text"><b>Country: </b>{{$fund->country}}</p>
@@ -32,7 +31,11 @@
                     </div>
                 </div>
             @endforeach
-
+            <div class="text-center">
+                <button type="button" onclick="history.back()" class="btn btn-secondary">
+                    {{ __('Cancel') }}
+                </button>
+            </div>
         </div>
     </div>
 @endsection

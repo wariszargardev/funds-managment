@@ -7,6 +7,7 @@ use App\Http\Controllers\editor\EditorController;
 use App\Http\Controllers\admin\EditorController as AdminEditorController;
 use App\Http\Controllers\editor\FundsController;
 use App\Http\Controllers\admin\FundsController as AdminFundsController;
+use App\Http\Controllers\editor\FundsSummaryController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -40,8 +41,6 @@ Route::group(['middleware' => ['auth:admin']], function () {
             Route::resource('/funds',AdminFundsController::class);
             Route::get('/funds-summary', [AdminFundsController::class, 'summary'])->name('funds.summary');
             Route::get('/funds-show-all/{id}', [AdminFundsController::class, 'showAll'])->name('funds.show.all');
-
-
         });
     });
 });
@@ -62,6 +61,10 @@ Route::group(['middleware' => ['auth:editor']], function () {
             Route::get('/funds-show-all/{id}', [FundsController::class, 'showAll'])->name('funds.show.all');
             Route::get('/check-phone-number-exists', [FundsController::class, 'checkIsPhoneNumberExists'])->name('funds.check_is_exists_phone_number');
 
+            Route::get('/export/{id?}',[FundsSummaryController::class,'export'])->name('funds.export');
+            Route::resource('/fundsdetails',FundsSummaryController::class);
+            Route::get('/funds-summary-details', [FundsSummaryController::class, 'summary'])->name('funds.summary');
+            Route::get('/funds-show-all-details/{id}', [FundsSummaryController::class, 'showAll'])->name('funds.show.all');
         });
     });
 });
@@ -75,3 +78,7 @@ Route::post('/admin/logout', [AdminAuthController::class, 'logout'])->name('admi
 Route::get('/editor/login', [EditorAuthController::class, 'showLoginForm'])->name('editor.login');
 Route::post('/editor/login', [EditorAuthController::class, 'login'])->name('editor.login');
 Route::post('/editor/logout', [EditorAuthController::class, 'logout'])->name('editor.logout');
+
+
+// load province city state
+Route::get('/', [EditorController::class, 'loadProvinceCity'])->name('loadProvinceCity');

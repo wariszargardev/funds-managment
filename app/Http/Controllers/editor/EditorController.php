@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\editor;
 
 use App\Http\Controllers\Controller;
+use App\Models\City;
 use App\Models\Editor;
+use App\Models\Province;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -48,5 +50,17 @@ class EditorController extends Controller
         $admin->save();
 
         return redirect()->back()->withSuccess('Profile update successfully');
+    }
+
+    public function loadProvinceCity(Request $request){
+        $data = array();
+        if($request->countryId){
+            $data = Province::where('country_id',$request->countryId)->get();
+        }
+        if ($request->province){
+            $data = City::where('state_id',$request->province)->get();
+        }
+        $view =  view('editor.funds.make_select_option',compact('data'))->render();
+        return response()->json(['view'=> $view, 'status' => 200]);
     }
 }

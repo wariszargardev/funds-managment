@@ -4,6 +4,9 @@ namespace App\Http\Controllers\editor;
 
 use App\Http\Controllers\Controller;
 use App\Mail\FundsMail;
+use App\Models\City;
+use App\Models\Country;
+use App\Models\Province;
 use App\Models\User;
 use App\Models\UserInfo;
 use Exception;
@@ -29,10 +32,10 @@ class FundsController extends Controller
         'amount_type' => ['required'],
         'image' => ['required', 'mimes:png,jpeg,jpg'],
         'address' => ['required', 'string'],
-        'street' => ['required', 'string'],
-        'province' => ['required', 'string'],
-        'city' => ['required', 'string'],
-        'country' => ['required', 'string'],
+        'province_id' => ['required', 'string'],
+        'city_id' => ['required', 'string'],
+        'country_id' => ['required', 'string'],
+        'land_line_number' => ['required', 'string'],
     ];
 
     public function index(){
@@ -42,9 +45,11 @@ class FundsController extends Controller
         return view('editor.funds.index',compact('funds'));
     }
 
-    public function create(){
-        $user_info = UserInfo::first();
-        return view('editor.funds.create');
+    public function create(Request $request){
+        $countries= Country::all();
+        $provinces = Province::where('country_id',$request->country == null ? 167 :$request->country)->get();
+        $cities = City::where('state_id',$request->province == null ? 3176 :$request->province)->get();
+        return view('editor.funds.create', compact('countries','provinces', 'cities'));
     }
 
     public function store(Request $request){
@@ -80,10 +85,11 @@ class FundsController extends Controller
             'cheque_pay_order_no'=>$request->cheque_pay_order_no ?? '',
             'payment_in' => $request->payment_in,
             'reference_by' => $request->reference_by,
-            'street' => $request->street,
-            'province' => $request->province,
-            'city' => $request->city,
-            'country' => $request->country,
+            'street' => '',
+            'province_id' => $request->province_id,
+            'city_id' => $request->city_id,
+            'country_id' => $request->country_id,
+            'land_line_number' => $request->land_line_number,
         ]);
         if (env('IS_ENABLED_SEND_EMAIL') == 1){
             try {
@@ -119,7 +125,10 @@ class FundsController extends Controller
 
     public function edit($id){
         $fund = UserInfo::find($id);
-        return view('editor.funds.edit',compact('fund'));
+        $countries= Country::all();
+        $provinces = Province::where('country_id',$fund->country_id)->get();
+        $cities = City::where('state_id',$fund->province_id)->get();
+        return view('editor.funds.edit',compact('fund','countries','cities','provinces'));
     }
 
     public function update(Request $request, $id){
@@ -150,10 +159,11 @@ class FundsController extends Controller
         $user_info->cheque_pay_order_no = $request->cheque_pay_order_no ?? '';
         $user_info->payment_in = $request->payment_in;
         $user_info->reference_by = $request->reference_by;
-        $user_info->street = $request->street;
-        $user_info->province = $request->province;
-        $user_info->city = $request->city;
-        $user_info->country = $request->country;
+        $user_info->street = '';
+        $user_info->province_id = $request->province_id;
+        $user_info->city_id = $request->city_id;
+        $user_info->country_id = $request->country_id;
+        $user_info->land_line_number = $request->land_line_number;
         $user_info->save();
         return redirect()->route('editor.funds.index')->withSuccess('Record update successfully');
     }
@@ -194,7 +204,10 @@ class FundsController extends Controller
         $user = User::where('phone_number',$phoneNumber)->get()->first();
         if ($user){
             $fund = $user->userInfos->last();
-            $view =  view('editor.funds.create_pre_filled_form',compact('fund'))->render();
+            $countries= Country::all();
+            $provinces = Province::where('country_id',$fund->country_id)->get();
+            $cities = City::where('state_id',$fund->province_id)->get();
+            $view =  view('editor.funds.create_pre_filled_form',compact('fund','countries','provinces','cities'))->render();
             return response()->json(['view'=> $view, 'status' => 200]);
         }
     }
