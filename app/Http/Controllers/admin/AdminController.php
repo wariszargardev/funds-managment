@@ -8,6 +8,7 @@ use App\Models\Editor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 
 
 class AdminController extends Controller
@@ -25,6 +26,7 @@ class AdminController extends Controller
 
     public function updateProfile(Request $request)
     {
+        Redirect::
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255'],
