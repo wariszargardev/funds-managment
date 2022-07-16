@@ -81,4 +81,4 @@ Route::post('/editor/logout', [EditorAuthController::class, 'logout'])->name('ed
 
 
 // load province city state
-Route::get('/', [EditorController::class, 'loadProvinceCity'])->name('loadProvinceCity');
+Route::get('/loadProvinceCity', [EditorController::class, 'loadProvinceCity'])->name('loadProvinceCity');
