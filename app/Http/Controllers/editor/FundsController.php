@@ -57,6 +57,7 @@ class FundsController extends Controller
         if(!in_array($request->deposited_by, ['Bank draft','Pay order'])){
             unset($fields['cheque_pay_order_no']);
             unset($fields['image']);
+            unset($fields['bank_name']);
         }
         $request->validate($fields);
 
@@ -136,6 +137,7 @@ class FundsController extends Controller
         if(!in_array($request->deposited_by, ['Bank draft','Pay order'])){
             unset($fields['cheque_pay_order_no']);
             unset($fields['image']);
+            unset($fields['bank_name']);
         }
         else{
             unset($fields['image'][0]);
