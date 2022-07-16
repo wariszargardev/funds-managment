@@ -5,7 +5,9 @@
         <div class="row justify-content-center mb-5">
             <div class="col-md-8 mb-5">
                 <div class="card" style="width: 100%;">
-                    <img src="{{asset('/public/funds/'.$fund->image)}}" style="height: 200px" class="card-img-top" alt="...">
+                    @if($fund->image != '')
+                        <img src="{{asset('/public/funds/'.$fund->image)}}" style="height: 200px" class="card-img-top" alt="...">
+                    @endif
                     <div class="card-body">
                         <p class="card-text"><b>Phone number: </b>{{$fund->user->phone_number}}</p>
                         <p class="card-text"><b>Date: </b>{{$fund->date}}</p>
