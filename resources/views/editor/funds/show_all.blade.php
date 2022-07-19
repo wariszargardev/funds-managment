@@ -24,6 +24,9 @@
                             <p class="card-text"><b>City: </b>{{$fund->city}}</p>
                             <p class="card-text"><b>Country: </b>{{$fund->country}}</p>
                             <p class="card-text"><b>Address: </b>{{$fund->address}}</p>
+
+                            <p class="card-text"><b>Created at: </b>{{$fund->created_at}}</p>
+                            <p class="card-text"><b>Updated at: </b>{{$fund->updated_at}}</p>
                             <div class="text-center">
                                 <a href="{{ route('editor.funds.edit',$fund->id) }}" class="btn btn-outline-primary">Edit</a>
                                 <a href="{{ route('editor.funds.destroy',$fund->id) }}"  onclick="return confirm('Are you sure?')" class="btn btn-outline-secondary">Delete</a>

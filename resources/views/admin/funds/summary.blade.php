@@ -22,12 +22,19 @@
                                 <select id="sort_by" class="form-select" name="sort_by" aria-label="Default select example">
                                     <option {{request()->sort_by == '' ? 'selected' :''}}>Sort by</option>
                                     <option value="total_entry"  {{request()->sort_by == 'total_entry' ? 'selected' :''}}>Entries</option>
-                                    <option value="last_entry_date"  {{request()->sort_by == 'last_entry_date' ? 'selected' :''}}>Last date</option>
+                                    <option value="last_entry_date"  {{request()->sort_by == 'last_entry_date' ? 'selected' :''}}>Date</option>
                                     <option value="account_status"  {{request()->sort_by == 'account_status' ? 'selected' :''}}>Status</option>
                                 </select>
                             </div>
+                            <div class="col-md-2">
+                                <label>Search based on</label>
+                                <select class="form-select" name="sort_by_field" aria-label="Default select example">
+                                    <option value="desc" {{request()->sort_by_field == 'desc' ? 'selected' :''}}>Descending </option>
+                                    <option value="asc" {{request()->sort_by_field == 'asc' ? 'selected' :''}}>Ascending </option>
+                                </select>
+                            </div>
 
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <label>Status filter</label>
                                 <select id="sort_by" class="form-select" name="filter" aria-label="Default select example">
                                     <option value="all" {{request()->filter == '' ? 'selected' :''}}>All</option>
@@ -36,7 +43,7 @@
                                     <option value="Dormant"  {{request()->filter == 'Dormant' ? 'selected' :''}}>Dormant</option>
                                 </select>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <button @class('btn btn-info mt-4') type="submit"> Search</button>
                             </div>
                         </div>

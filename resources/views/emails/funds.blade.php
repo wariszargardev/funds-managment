@@ -17,6 +17,8 @@
                 <p class="card-text"><b>Amount type: </b>{{$fund->amount_type}}</p>
                 <p class="card-text"><b>Cheque / pay order no: </b>{{$fund->cheque_pay_order_no}}</p>
                 <p class="card-text"><b>Address: </b>{{$fund->address}}</p>
+                <p class="card-text"><b>Created at: </b>{{$fund->created_at}}</p>
+                <p class="card-text"><b>Updated at: </b>{{$fund->updated_at}}</p>
             </div>
         </div>
     </div>

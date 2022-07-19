@@ -54,10 +54,12 @@ class FundsController extends Controller
 
     public function store(Request $request){
         $fields = $this->validate_field;
-        if(!in_array($request->deposited_by, ['Bank draft','Pay order'])){
+        if(!in_array($request->deposited_by, ['Bank draft','Pay order', 'Cheque'])){
             unset($fields['cheque_pay_order_no']);
-            unset($fields['image']);
             unset($fields['bank_name']);
+            if($request->deposited_by != 'Cash'){
+                unset($fields['image']);
+            }
         }
         $request->validate($fields);
 
@@ -134,10 +136,12 @@ class FundsController extends Controller
 
     public function update(Request $request, $id){
         $fields = $this->validate_field;
-        if(!in_array($request->deposited_by, ['Bank draft','Pay order'])){
+        if(!in_array($request->deposited_by, ['Bank draft','Pay order', 'Cheque'])){
             unset($fields['cheque_pay_order_no']);
-            unset($fields['image']);
             unset($fields['bank_name']);
+            if($request->deposited_by != 'Cash'){
+                unset($fields['image']);
+            }
         }
         else{
             unset($fields['image'][0]);

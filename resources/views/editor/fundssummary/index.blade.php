@@ -28,7 +28,6 @@
                                     <option value="email" {{request()->column_name == 'email' ? 'selected' :''}}>Email</option>
                                     <option value="bank_name" {{request()->column_name == 'bank_name' ? 'selected' :''}}>Bank name</option>
                                     <option value="reference_by" {{request()->column_name == 'reference_by' ? 'selected' :''}}>Reference by</option>
-                                    <option value="street" {{request()->column_name == 'street' ? 'selected' :''}}>Street</option>
                                     <option value="province" {{request()->column_name == 'province' ? 'selected' :''}}>Province</option>
                                     <option value="city" {{request()->column_name == 'city' ? 'selected' :''}}>City</option>
                                     <option value="country" {{request()->column_name == 'country' ? 'selected' :''}}>Country</option>
@@ -61,7 +60,6 @@
                                     <option value="email" {{request()->sort_by_column == 'email' ? 'selected' :''}}>Email</option>
                                     <option value="bank_name" {{request()->sort_by_column == 'bank_name' ? 'selected' :''}}>Bank name</option>
                                     <option value="reference_by" {{request()->sort_by_column == 'reference_by' ? 'selected' :''}}>Reference by</option>
-                                    <option value="street" {{request()->sort_by_column == 'street' ? 'selected' :''}}>Street</option>
                                     <option value="province" {{request()->sort_by_column == 'province' ? 'selected' :''}}>Province</option>
                                     <option value="city" {{request()->sort_by_column == 'city' ? 'selected' :''}}>City</option>
                                     <option value="country" {{request()->sort_by_column == 'country' ? 'selected' :''}}>Country</option>
@@ -93,7 +91,7 @@
                                     <th scope="col">Reference by</th>
                                     <th scope="col">Amount</th>
                                     <th scope="col">Date(y-m-d)</th>
-                                    <th scope="col">Street</th>
+                                    <th scope="col">Updated at</th>
                                     <th scope="col">Province</th>
                                     <th scope="col">City</th>
                                     <th scope="col">State</th>
@@ -112,7 +110,7 @@
                                             <td>{{ $fund->reference_by }}</td>
                                             <td>{{ $fund->amount }}</td>
                                             <td>{{ $fund->date }}</td>
-                                            <td>{{ $fund->street }}</td>
+                                            <td>{{ $fund->updated_at }}</td>
                                             <td>{{ $fund->province }}</td>
                                             <td>{{ $fund->city }}</td>
                                             <td>{{ $fund->country }}</td>

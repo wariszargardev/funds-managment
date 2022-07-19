@@ -210,7 +210,6 @@ class FundsSummaryController extends Controller
             $temp[] = $fund->bank_name;
             $temp[] = $fund->cheque_pay_order_no;
             $temp[] = $fund->amount_type;
-            $temp[] = $fund->street;
             $temp[] = $fund->province;
             $temp[] = $fund->city;
             $temp[] = $fund->country;

@@ -210,7 +210,6 @@ class FundsController extends Controller
             $temp[] = $fund->bank_name;
             $temp[] = $fund->cheque_pay_order_no;
             $temp[] = $fund->amount_type;
-            $temp[] = $fund->street;
             $temp[] = $fund->province;
             $temp[] = $fund->city;
             $temp[] = $fund->country;
@@ -258,7 +257,12 @@ class FundsController extends Controller
         $users = $users->groupBy('user_infos.user_id');
         $users = $users->get();
         if($request->sort_by != null && $request->sort_by != ''){
-            $users =  $users->sortByDesc($request->sort_by);
+            if($request->sort_by_field == 'desc') {
+                $users = $users->sortByDesc($request->sort_by);
+            }
+            else{
+                $users = $users->sortBy($request->sort_by);
+            }
         }
         if ($request->filter != '' && $request->filter != 'all'){
             foreach ($users as $key => $user){

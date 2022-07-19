@@ -24,6 +24,8 @@
                         <p class="card-text"><b>City: </b>{{$fund->city}}</p>
                         <p class="card-text"><b>Country: </b>{{$fund->country}}</p>
                         <p class="card-text"><b>Address: </b>{{$fund->address}}</p>
+                        <p class="card-text"><b>Created at: </b>{{$fund->created_at}}</p>
+                        <p class="card-text"><b>Updated at: </b>{{$fund->updated_at}}</p>
                         <div class="text-center">
                             <button type="button" onclick="history.back()" class="btn btn-secondary">
                                 {{ __('Cancel') }}
