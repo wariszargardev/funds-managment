@@ -32,7 +32,7 @@
                                 <div class="col-lg-6">
                                     <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Date(mm/dd/yyyy)') }}</label>
                                     <div class="col-lg-12">
-                                        <input  placeholder="mm/dd/yyyy"  type="date" class="form-control" name="date" value="{{old('date')}}" >
+                                        <input  placeholder="mm/dd/yyyy"  type="date" class="form-control" name="date" value="{{old('date') == '' ? Carbon\Carbon::now()->format('Y-m-d') : ''}}" >
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -133,7 +133,7 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
-                                    <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Amount type') }}</label>
+                                    <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Mode of Payment') }}</label>
                                     <div class="col-lg-12">
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="radio" name="amount_type" id="amount_type1"  {{old('amount_type')  == 'Zakat' ? 'checked':""}} value="Zakat">

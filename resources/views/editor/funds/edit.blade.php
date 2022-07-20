@@ -165,7 +165,7 @@
 
 
                                 <div class="col-lg-6">
-                                    <label for="land_line_number" class="col-lg-4 col-form-label text-md-left">{{ __('Land line number') }}</label>
+                                    <label for="land_line_number" class="col-lg-4 col-form-label text-md-left">{{ __('Telephone Number') }}</label>
                                     <div class="col-lg-12">
                                         <input type="text" class="form-control" name="land_line_number" value="{{$fund->land_line_number}}"  id="land_line_number"  >
                                     </div>

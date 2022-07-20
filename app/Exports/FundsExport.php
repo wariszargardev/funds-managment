@@ -37,7 +37,7 @@ class FundsExport implements FromCollection, WithHeadings
             "Deposited by",
             "Bank name",
             "Cheque pay order no",
-            "Amount type",
+            "Mode of Payment",
             "Province",
             "City",
             "Country",

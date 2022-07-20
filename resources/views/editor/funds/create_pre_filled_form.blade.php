@@ -23,7 +23,7 @@
         <div class="col-lg-6">
             <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Date(mm/dd/yyyy)') }}</label>
             <div class="col-lg-12">
-                <input type="date"  placeholder="mm/dd/yyyy"  class="form-control" name="date" value="{{$fund->date}}" >
+                <input type="date"  placeholder="mm/dd/yyyy"  class="form-control" name="date" value="{{old('date') == '' ? Carbon\Carbon::now()->format('Y-m-d') : ''}}" >
             </div>
         </div>
         <div class="col-lg-6">
@@ -153,7 +153,7 @@
 
 
         <div class="col-lg-6">
-            <label for="land_line_number" class="col-lg-4 col-form-label text-md-left">{{ __('Land line number') }}</label>
+            <label for="land_line_number" class="col-lg-4 col-form-label text-md-left">{{ __('Telephone Number') }}</label>
             <div class="col-lg-12">
                 <input type="text" class="form-control" name="land_line_number" value="{{$fund->land_line_number}}"  id="land_line_number"  >
             </div>
