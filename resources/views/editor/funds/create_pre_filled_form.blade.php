@@ -127,7 +127,7 @@
             </div>
         </div>
         <div class="col-lg-6">
-            <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Deposited by') }}</label>
+            <label for="name" class="col-lg-4 col-form-label text-md-left">{{ __('Mode of Payment') }}</label>
             <div class="col-lg-12">
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="amount_type" id="amount_type1"  {{$fund->amount_type == "Zakat" ? 'checked' : '' }} value="Zakat">
